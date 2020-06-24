@@ -17,13 +17,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     controller/controller.cpp \
+    model/autoelettrica.cpp \
+    model/autoibrida.cpp \
+    model/autotermica.cpp \
     model/model.cpp \
+    model/rifornimento.cpp \
+    model/veicolo.cpp \
+    model/veicoloelettrico.cpp \
+    model/veicolotermico.cpp \
     view/liberty.cpp \
     main.cpp
 
 HEADERS += \
     controller/controller.h \
+    model/autoelettrica.h \
+    model/autoibrida.h \
+    model/autotermica.h \
+    model/container.h \
     model/model.h \
+    model/rifornimento.h \
+    model/veicolo.h \
+    model/veicoloelettrico.h \
+    model/veicolotermico.h \
     view/liberty.h
 
 # Default rules for deployment.
