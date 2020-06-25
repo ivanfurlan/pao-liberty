@@ -9,10 +9,11 @@ using std::string;
 using std::list;
 
 class Veicolo
-{ // TO DO: gestire la memoria e mettere passaggi per  riferimento o puntatore ovunque sia possibile
+{ // TO DO: DA CONTROLLARE/FARE: gestire la memoria e mettere passaggi per riferimento o puntatore ovunque sia possibile
     public:
         // Costruttori
-        Veicolo();
+        Veicolo(const string, const string = "Sconosciuto", const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
+        virtual ~Veicolo();
 
         // Metodi costanti
         string getNomeEsteso() const;
@@ -29,25 +30,27 @@ class Veicolo
 
         // Metodi non costanti
         virtual void addRifornimento(Rifornimento*);
+        void update(string, string, float, float, float,  u_int, u_int, u_short, u_int);
         void doTagliando(const u_int);
+        void setName(string, string);
+        void setDimensioni(float, float, float);
+        void setPesi(u_int, u_int);
+        void setMaxPasseggieri(u_short);
 
     protected:
-        virtual bool checkCorrettezzaRifornimento(const Rifornimento& ) const = 0;
+        virtual bool checkCorrettezzaRifornimento(const Rifornimento& ) const;
+        float getTotaleRifornito(const Rifornimento::tipo_r) const;
 
-        list<Rifornimento* > rifornimenti; //TO DO: mettere irifornimenti const
+        list<Rifornimento* > rifornimenti; //TO DO: mettere i rifornimenti const (?)
 
     private:
         string marca; // Es: "Ford"
         string modello; // Es: "Fiesta ST 2019"
-        //float prezzo; // In Euro
-        float largheza, lunghezza, altezza; // In cm
-        u_short num_ruote;
         u_int peso; // In kg (senza decimali)
         u_int peso_max;
         u_short passeggeri_max;
-        u_short coppia; // In Nm
-        u_short velocita_max;
         u_int ultimo_tagliando_km;
+        float lunghezza, largheza, altezza; // In cm
 };
 
 #endif // VEICOLO_H

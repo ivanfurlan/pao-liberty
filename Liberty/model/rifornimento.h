@@ -12,7 +12,7 @@ class Rifornimento
     public:
         // Tipologie di rifornimento
         enum tipo_r{DIESEL, BENZINA, ELETTRICITA};
-        // Una mappa che associa ad ogni tipo il suo nome come stringa
+        // TO DO: Una mappa che associa ad ogni tipo il suo nome come stringa
         static map<tipo_r, string> tipo_string;
 
         // Costruttori

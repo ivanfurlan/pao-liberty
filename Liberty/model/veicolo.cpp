@@ -1,8 +1,16 @@
 #include "veicolo.h"
 
-Veicolo::Veicolo()
+Veicolo::Veicolo(const std::string mar, const std::string model, const u_int peso_vuoto, const u_int p_max, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
+    : marca(mar), modello(model), peso(peso_vuoto), peso_max(p_max), passeggeri_max(pass), ultimo_tagliando_km(tag), lunghezza(lun), largheza(lar), altezza(alt)
 {
 
+}
+
+Veicolo::~Veicolo()
+{
+    for(auto it = rifornimenti.begin(); it!=rifornimenti.end(); it++){
+        delete (*it);
+    }
 }
 
 std::string Veicolo::getNomeEsteso() const
@@ -39,6 +47,22 @@ void Veicolo::doTagliando(const u_int km)
     ultimo_tagliando_km=km;
 }
 
+bool Veicolo::checkCorrettezzaRifornimento(const Rifornimento & r) const
+{
+    return (r.getKm()>=this->getKmTotaliVeicolo()) && \
+            (r.getCostoPerUnita()>0);
+}
+
+float Veicolo::getTotaleRifornito(const Rifornimento::tipo_r tr) const
+{
+    float tot_kw=0;
+    for(auto it=rifornimenti.begin();it!=rifornimenti.end();++it){
+        if(tr==(*it)->getTipoRifornimento())
+            tot_kw+=(*it)->getQuantita();
+    }
+    return tot_kw;
+}
+
 const Rifornimento &Veicolo::getUltimoRifornimento() const
 {
     return *rifornimenti.front();
@@ -46,7 +70,10 @@ const Rifornimento &Veicolo::getUltimoRifornimento() const
 
 u_int Veicolo::getKmTotaliVeicolo() const
 {
-    return rifornimenti.front()->getKm();
+    if(rifornimenti.empty())
+        return 0;
+    else
+        return rifornimenti.front()->getKm();
 }
 
 u_int Veicolo::getUltimoTagliando() const

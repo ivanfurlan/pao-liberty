@@ -2,7 +2,6 @@
 
 Rifornimento::Rifornimento(Rifornimento::tipo_r t, float km, float qt, float cpu) : tipo_rifornimento(t), km_totali(km), quantita_rifornita(qt), costo_per_unita(cpu)
 {
-
 }
 
 float Rifornimento::getCostoRifornimento() const
@@ -12,7 +11,7 @@ float Rifornimento::getCostoRifornimento() const
 
 float Rifornimento::getKm() const
 {
-    return km_totali;
+    return this->km_totali;
 }
 
 float Rifornimento::getQuantita() const

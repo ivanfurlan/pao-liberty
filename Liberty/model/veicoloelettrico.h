@@ -3,30 +3,33 @@
 
 #include "veicolo.h"
 
-class VeicoloElettrico : public Veicolo
+class VeicoloElettrico : public virtual Veicolo
 {
     public:
         // Costruttori
-        VeicoloElettrico();
+        VeicoloElettrico(const string, const string, const float, const u_short = 0, const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
 
         // Metodi costanti
-        virtual u_int getKmAutonomia() const;
-        virtual u_short getCavalli() const;
-        virtual u_short getKw() const;
-        float getBatteria() const;
+        virtual u_int getKmAutonomia() const override;
+        virtual u_short getCavalli() const override;
+        virtual u_short getKw() const override;
+        float getConsumoElettricoMedio() const; // In km/Kw
+        float getBatteria() const; //capienza batteria
 
-        //Metodi non costanti
-        virtual void addRifornimento(Rifornimento*);
-        void setBatteria(const float);
+        // Metodi non costanti
+        virtual void addRifornimento(Rifornimento*) override;
+        void setBatteria(const float); // TO DO: forse non serve
 
     protected:
-        virtual bool checkCorrettezzaRifornimento(const Rifornimento&) const;
+        virtual bool checkCorrettezzaRifornimento(const Rifornimento&) const override;
 
         static Rifornimento::tipo_r tipo_rifornimento;
         float capacita_batteria;
 
     private:
-        float carica_batteria; //In % quanto carica è la batteria
+        float getKwTotaliRicaricati() const;
+
+        float carica_batteria; // In % quanto carica è la batteria // TO DO: forse non serve
         u_short cavalli_elettrici;
 };
 

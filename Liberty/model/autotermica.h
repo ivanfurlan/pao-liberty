@@ -7,10 +7,10 @@ class AutoTermica : public VeicoloTermico
 {
     public:
         // Costruttori
-        AutoTermica();
+        AutoTermica(const string, const string, const Rifornimento::tipo_r, const float, const u_short, const u_int, const u_int, const u_short, const u_int, const float, const float, const float);
 
         // Metodi costanti
-        virtual bool fareTagliando() const;
+        virtual bool fareTagliando() const override;
 };
 
 #endif // AUTOTERMICA_H
