@@ -29,7 +29,6 @@ SOURCES += \
     view/liberty.cpp \
     main.cpp \
     view/proprietaveicololabel.cpp \
-    view/setveicolowidget.cpp \
     view/veicololistwidgetitem.cpp
 
 HEADERS += \
@@ -46,7 +45,6 @@ HEADERS += \
     view/dettagliveicoliwidget.h \
     view/liberty.h \
     view/proprietaveicololabel.h \
-    view/setveicolowidget.h \
     view/veicololistwidgetitem.h
 
 # Default rules for deployment.
