@@ -16,7 +16,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    controller/controller.cpp \
     model/autoelettrica.cpp \
     model/autoibrida.cpp \
     model/autotermica.cpp \
@@ -25,21 +24,30 @@ SOURCES += \
     model/veicolo.cpp \
     model/veicoloelettrico.cpp \
     model/veicolotermico.cpp \
+    controller/controller.cpp \
+    view/dettagliveicoliwidget.cpp \
     view/liberty.cpp \
-    main.cpp
+    main.cpp \
+    view/proprietaveicololabel.cpp \
+    view/setveicolowidget.cpp \
+    view/veicololistwidgetitem.cpp
 
 HEADERS += \
-    controller/controller.h \
     model/autoelettrica.h \
     model/autoibrida.h \
     model/autotermica.h \
-    model/container.h \
+    container.h \
     model/model.h \
     model/rifornimento.h \
     model/veicolo.h \
     model/veicoloelettrico.h \
     model/veicolotermico.h \
-    view/liberty.h
+    controller/controller.h \
+    view/dettagliveicoliwidget.h \
+    view/liberty.h \
+    view/proprietaveicololabel.h \
+    view/setveicolowidget.h \
+    view/veicololistwidgetitem.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

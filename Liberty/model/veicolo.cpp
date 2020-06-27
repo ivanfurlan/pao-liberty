@@ -18,6 +18,16 @@ std::string Veicolo::getNomeEsteso() const
     return marca+" - "+modello;
 }
 
+std::string Veicolo::getMarca() const
+{
+    return marca;
+}
+
+std::string Veicolo::getModello() const
+{
+    return modello;
+}
+
 u_int Veicolo::getPeso() const
 {
     return peso;

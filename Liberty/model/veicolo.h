@@ -17,6 +17,8 @@ class Veicolo
 
         // Metodi costanti
         string getNomeEsteso() const;
+        string getMarca() const;
+        string getModello() const;
         u_int getPeso() const;
         u_short getPosti() const;
         const Rifornimento& getUltimoRifornimento() const;

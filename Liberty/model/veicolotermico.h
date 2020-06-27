@@ -16,6 +16,7 @@ class VeicoloTermico : public virtual Veicolo
         virtual u_short getKw() const override;
         float getConsumoCarburanteMedio() const; // in km per unità di carburante
         float getSerbatoio() const; // capienza serbatoio
+        string getTipoRifornimento() const;
 
         // Metodi non costanti
         virtual void addRifornimento(Rifornimento*) override;

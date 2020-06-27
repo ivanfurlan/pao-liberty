@@ -2,7 +2,7 @@
 #define MODEL_H
 
 #include "veicolo.h"
-#include "container.h"
+#include "../container.h"
 
 class Model
 {
@@ -12,7 +12,7 @@ class Model
         ~Model();
 
         // Metodi costanti
-        const Veicolo* getVeicoloAt(const u_int&) const;
+        Container<Veicolo* >::const_iterator getVeicoloAt(const u_int&) const;
         u_int count() const;
         // get: Veicolo meno costoso perkm, Veicolo più costoso per km, get veicolo con Autonomia con un pieno maggiore
 

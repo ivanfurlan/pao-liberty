@@ -1,5 +1,7 @@
 #include "rifornimento.h"
 
+map<Rifornimento::tipo_r,std::string> Rifornimento::tipo_string = {{Rifornimento::DIESEL,"Diesel"},{Rifornimento::BENZINA,"Benzina"},{Rifornimento::ELETTRICITA,"Elettricità"}};
+
 Rifornimento::Rifornimento(Rifornimento::tipo_r t, float km, float qt, float cpu) : tipo_rifornimento(t), km_totali(km), quantita_rifornita(qt), costo_per_unita(cpu)
 {
 }

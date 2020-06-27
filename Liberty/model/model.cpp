@@ -6,14 +6,14 @@ Model::Model()
 
 Model::~Model()
 {
-    for(auto it=veicoli.begin();it<veicoli.end();++it){
+    for(auto it=veicoli.begin(); it<veicoli.end(); ++it){
         delete *it;
     }
 }
 
-const Veicolo* Model::getVeicoloAt(const u_int & i) const
+Container<Veicolo* >::const_iterator Model::getVeicoloAt(const u_int & i) const
 {
-    return veicoli[i];
+    return Container<Veicolo* >::const_iterator(veicoli,i);
 }
 
 u_int Model::count() const

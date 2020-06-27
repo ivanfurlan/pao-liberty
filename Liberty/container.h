@@ -47,8 +47,8 @@ class Container{
 
             public:
                 iterator();
-                iterator(Container &, const int =0);
                 iterator(const iterator &) = default;
+                iterator(Container &, const int =0);
 
                 iterator& operator++();
                 iterator operator++(int);

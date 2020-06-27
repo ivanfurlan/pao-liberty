@@ -7,7 +7,7 @@ class AutoElettrica : public VeicoloElettrico
 {
     public:
         // Costruttori
-        AutoElettrica(const string, const string, const float, const u_short, const u_int, const u_int, const u_short, const u_int, const float, const float, const float);
+        AutoElettrica(const string, const string, const float, const u_short = 0, const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
 
         // Metodi costanti
         virtual bool fareTagliando() const override;

@@ -37,6 +37,11 @@ float VeicoloTermico::getSerbatoio() const
     return capacita_serbatoio;
 }
 
+string VeicoloTermico::getTipoRifornimento() const
+{
+    return Rifornimento::tipo_string[tipo_rifornimento];
+}
+
 void VeicoloTermico::addRifornimento(Rifornimento *r)
 {
     Veicolo::addRifornimento(r);
