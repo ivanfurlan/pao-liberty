@@ -11,6 +11,7 @@ class VeicoloListWidgetItem : public QListWidgetItem
         VeicoloListWidgetItem();
         VeicoloListWidgetItem(const Veicolo*, const u_int&);
         const Veicolo *getVeicolo() const;
+        u_int getPosizione() const;
         void setPosizione(const u_int);
         void setVeicolo(const Veicolo*);
     private:

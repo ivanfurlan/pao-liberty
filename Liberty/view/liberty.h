@@ -11,14 +11,14 @@
 #include <QLabel>
 #include <QSizeGrip>
 #include <QSplitter>
-
-#include <string>
+#include <QTabWidget>
 
 using std::string;
 
 class DettagliVeicoliWidget;
 class Veicolo;
 class Controller;
+class RifornimentiVeicoloWidget;
 
 class Liberty : public QWidget
 {
@@ -32,10 +32,9 @@ class Liberty : public QWidget
         void selezionatoVeicolo(const Veicolo *);
 
     public slots:
-        void askRifornisciVeicolo();
-        void askModificaVeicolo();
         void askEliminaVeicolo();
         void veicoloAggiunto(const Veicolo *, const u_int &);
+        void visibilitaInfoVeicolo();
 
     private:
         void setStyle();
@@ -43,8 +42,10 @@ class Liberty : public QWidget
 
         Controller* controller;
 
+        RifornimentiVeicoloWidget* rifornimenti;
         QVBoxLayout* mainLayout;
         QListWidget* listaWidgetVeicoli;
         DettagliVeicoliWidget* dettagli;
+        QTabWidget * info_veicolo;
 };
 #endif // LIBERTY_H

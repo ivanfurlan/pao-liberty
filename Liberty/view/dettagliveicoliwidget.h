@@ -7,7 +7,7 @@
 #include <QListWidgetItem>
 
 #include "../model/veicolo.h"
-#include "proprietaveicololabel.h"
+#include "proprietalabel.h"
 
 class DettagliVeicoliWidget : public QWidget
 {
@@ -17,34 +17,39 @@ class DettagliVeicoliWidget : public QWidget
         ~DettagliVeicoliWidget() = default;
 
     public slots:
-        void updateDati(QListWidgetItem*);
+        void updateDati(QListWidgetItem* = nullptr);
         void permettiModifica();
+        void annullaModifica();
+        void prepareSignalSalvataggio();
     signals:
-        void startModifica();
+        void startModifica(); // segnale che viene preso da ogni ProprietàVeicoloLabel che "rende" appunto la lable modificabile. La connect è nel costruttore delle ProprietàVeicoloLabel
+        void richiestaSalvataggio(u_int pos, string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria);
     private:
         QWidget * parent;
+        QListWidgetItem * current_item;
 
-        QPushButton * rifornisci;
         QPushButton * modifica;
         QPushButton * elimina;
         QPushButton * annulla;
         QPushButton * salva;
 
-        ProprietaVeicoloLabel * marca;
-        ProprietaVeicoloLabel * modello;
-        ProprietaVeicoloLabel * peso_vuoto;
-        ProprietaVeicoloLabel * posti;
-        ProprietaVeicoloLabel * km_totali;
-        ProprietaVeicoloLabel * ultimo_tagliando;
-        ProprietaVeicoloLabel * tagliando_da_fare;
-        ProprietaVeicoloLabel * cavalli;
-        ProprietaVeicoloLabel * kw;
-        ProprietaVeicoloLabel * autonomia_massima;
-        ProprietaVeicoloLabel * carburante;
-        ProprietaVeicoloLabel * consumo_medio;
-        ProprietaVeicoloLabel * consumo_elettrico_medio;
-        ProprietaVeicoloLabel * capacita_serbatoio;
-        ProprietaVeicoloLabel * capacita_batteria;
+        ProprietaLabel * marca;
+        ProprietaLabel * modello;
+        ProprietaLabel * peso_vuoto;
+        ProprietaLabel * posti;
+        ProprietaLabel * km_totali;
+        ProprietaLabel * ultimo_tagliando;
+        ProprietaLabel * tagliando_da_fare;
+        ProprietaLabel * cavalli;
+        ProprietaLabel * cavalli_termici;
+        ProprietaLabel * cavalli_elettrici;
+        ProprietaLabel * kw;
+        ProprietaLabel * autonomia_massima;
+        ProprietaLabel * carburante;
+        ProprietaLabel * consumo_medio;
+        ProprietaLabel * consumo_elettrico_medio;
+        ProprietaLabel * capacita_serbatoio;
+        ProprietaLabel * capacita_batteria;
 };
 
 #endif // DETTAGLIVEICOLILAYOUT_H
