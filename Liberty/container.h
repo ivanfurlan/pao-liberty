@@ -22,7 +22,7 @@ class Container{
         void insertFront(const T &);
 
         iterator remove(const iterator);
-        iterator remove(T &);
+        iterator remove(const T &);
         iterator removeFront(); // TO DO: non credo serva
         iterator removeBack(); // TO DO: non credo serva
 
@@ -39,7 +39,7 @@ class Container{
         iterator begin();
         iterator end();
 
-        const_iterator search(const T &) const; // TO DO: non credo serva
+        const_iterator search(const T &) const;
         const_iterator begin() const;
         const_iterator end() const;
 
@@ -76,7 +76,7 @@ class Container{
 
         };
 
-        class const_iterator{
+        class const_iterator{   // TO DO: da sistemre
 
             public:
                 const_iterator();
@@ -192,7 +192,7 @@ void Container<T>::insertAt(const T & value, const iterator it)
 }
 
 template <typename T>
-typename Container<T>::iterator Container<T>::remove(T & value)
+typename Container<T>::iterator Container<T>::remove(const T & value)
 {
     return remove(search(value));
 }
@@ -216,7 +216,8 @@ typename Container<T>::iterator Container<T>::remove(const iterator it)
     iterator temp = it;
     iterator deleted = it;
     while(temp<end()){
-        *temp = *(temp++);
+        *temp = *(temp+1);
+        ++temp;
     }
     used--;
     if(used <= capacity-INCREMENT_CAPACITY*1.5) resize();
@@ -272,6 +273,16 @@ template <typename T>
 const T& Container<T>::operator[](const int & index) const
 {
     return array[index];
+}
+
+template <typename T>
+typename Container<T>::iterator Container<T>::search(const T & value) // TO DO: credo si possa ritornate iterator, poi nel caso c'è la conversione a const_iterator
+{
+    for(iterator it = begin(); it<end(); ++it){ // scorro e cerco l'elemento
+        if(*it == value)
+            return it;
+    }
+    return iterator();
 }
 
 template <typename T>
@@ -424,7 +435,7 @@ bool Container<T>::iterator::operator==(const iterator & it) const
  * IMPLEMENTAZIONE METODI DI CONST_ITERATOR
  * */
 template <typename T>
-Container<T>::const_iterator::const_iterator(const Container<T> & c, int i) : cPtr(&c), index(i)
+Container<T>::const_iterator::const_iterator(const Container<T> & c, int i) : index(i), cPtr(&c)
 {
 
 }

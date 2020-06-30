@@ -21,6 +21,7 @@ class VeicoloTermico : public virtual Veicolo
         // Metodi non costanti
         virtual void addRifornimento(Rifornimento*) override;
         void setSerbatoio(const float); // TO DO: forse non serve
+        void setCvTermici(const u_short);
 
     protected:
         virtual bool checkCorrettezzaRifornimento(const Rifornimento&) const override;

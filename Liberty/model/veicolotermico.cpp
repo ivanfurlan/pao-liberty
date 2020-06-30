@@ -1,7 +1,7 @@
 #include "veicolotermico.h"
 
-VeicoloTermico::VeicoloTermico(const std::string mar, const std::string model, const Rifornimento::tipo_r tr, const float ser, const u_short cav, const u_int peso_vuoto, const u_int p_max, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
-    :Veicolo(mar, model, peso_vuoto, p_max, pass, tag, lun, lar, alt), tipo_rifornimento(tr), capacita_serbatoio(ser), cavalli_termici(cav)
+VeicoloTermico::VeicoloTermico(const std::string mar, const std::string model, const Rifornimento::tipo_r tr, const float ser, const u_short cav, const u_int peso_vuoto, const u_int posti, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
+    :Veicolo(mar, model, peso_vuoto, posti, pass, tag, lun, lar, alt), tipo_rifornimento(tr), capacita_serbatoio(ser), cavalli_termici(cav)
 {
 
 }
@@ -52,6 +52,11 @@ void VeicoloTermico::setSerbatoio(const float percentuale_serbatoio)
 {
     //TO DO: controlli validità
     pieno_serbatoio=percentuale_serbatoio;
+}
+
+void VeicoloTermico::setCvTermici(const u_short ct)
+{
+    cavalli_termici=ct;
 }
 
 bool VeicoloTermico::checkCorrettezzaRifornimento(const Rifornimento& r) const

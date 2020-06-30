@@ -1,7 +1,9 @@
 #include "veicolo.h"
+#include <list>
+#include <iostream>
 
-Veicolo::Veicolo(const std::string mar, const std::string model, const u_int peso_vuoto, const u_int p_max, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
-    : marca(mar), modello(model), peso(peso_vuoto), peso_max(p_max), passeggeri_max(pass), ultimo_tagliando_km(tag), lunghezza(lun), largheza(lar), altezza(alt)
+Veicolo::Veicolo(const std::string mar, const std::string model, const u_int peso_vuoto, const u_int p_max, const u_short post, const u_int tag, const float lun, const float lar, const float alt)
+    : marca(mar), modello(model), peso(peso_vuoto), peso_max(p_max), posti(post), ultimo_tagliando_km(tag), lunghezza(lun), largheza(lar), altezza(alt)
 {
 
 }
@@ -41,7 +43,7 @@ u_int Veicolo::getPesoTrasportabile(u_short num_passeggeri) const
 
 u_short Veicolo::getPosti() const
 {
-    return passeggeri_max+1;
+    return posti;
 }
 
 void Veicolo::addRifornimento(Rifornimento* r)
@@ -55,6 +57,41 @@ void Veicolo::doTagliando(const u_int km)
 {
     // TO DO: check km siano validi
     ultimo_tagliando_km=km;
+}
+
+void Veicolo::setName(std::string ma, std::string mo)
+{
+    marca=ma;
+    modello=mo;
+}
+
+void Veicolo::setPeso(u_int p)
+{
+    peso=p;
+}
+
+void Veicolo::setPosti(u_short p)
+{
+    posti = p;
+}
+
+void Veicolo::eliminaRifornimento(u_int pos)
+{
+    auto it = rifornimenti.begin();
+    std::advance(it, pos);
+    Rifornimento * temp = *it;
+    rifornimenti.erase(it);
+    delete temp;
+}
+
+void Veicolo::modificaRifornimento(u_int pos, Rifornimento * r)
+{
+    auto it = rifornimenti.begin();
+    std::advance(it, pos);
+    Rifornimento * temp = *it;
+    *it=r;
+    delete temp;
+
 }
 
 bool Veicolo::checkCorrettezzaRifornimento(const Rifornimento & r) const
@@ -89,4 +126,9 @@ u_int Veicolo::getKmTotaliVeicolo() const
 u_int Veicolo::getUltimoTagliando() const
 {
     return ultimo_tagliando_km;
+}
+
+const list<Rifornimento *> &Veicolo::getRifornimenti() const
+{
+    return rifornimenti;
 }

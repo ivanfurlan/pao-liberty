@@ -19,8 +19,10 @@ class Model
         // Metodi non costanti
         void add(Veicolo *);
         void rifornisci(Veicolo *, Rifornimento *);
-        void delelte(Container<Veicolo *>::iterator &);
+        void deleteV(const Container<Veicolo *>::const_iterator &);
         void deleteAll();
+        void eliminaRifornimento(u_int,u_int);
+        void modificaRifornimento(Veicolo *,u_int, Rifornimento *);
 
     private:
         Container<Veicolo*> veicoli;

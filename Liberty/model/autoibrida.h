@@ -16,6 +16,7 @@ class AutoIbrida : public VeicoloTermico, public VeicoloElettrico
         virtual u_short getKw() const override;
         virtual bool fareTagliando() const override;
 
+
         // Metodi non costanti
         virtual void addRifornimento(Rifornimento*) override;
     protected:

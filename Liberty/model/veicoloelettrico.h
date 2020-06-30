@@ -19,6 +19,7 @@ class VeicoloElettrico : public virtual Veicolo
         // Metodi non costanti
         virtual void addRifornimento(Rifornimento*) override;
         void setBatteria(const float); // TO DO: forse non serve
+        void setCvElettrici(const u_short);
 
     protected:
         virtual bool checkCorrettezzaRifornimento(const Rifornimento&) const override;

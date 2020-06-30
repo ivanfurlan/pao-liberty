@@ -2,8 +2,8 @@
 
 Rifornimento::tipo_r VeicoloElettrico::tipo_rifornimento=Rifornimento::ELETTRICITA;
 
-VeicoloElettrico::VeicoloElettrico(const std::string mar, const std::string model, const float bat, const u_short cav, const u_int peso_vuoto, const u_int p_max, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
-    :Veicolo(mar, model, peso_vuoto, p_max, pass, tag, lun, lar, alt), capacita_batteria(bat), cavalli_elettrici(cav)
+VeicoloElettrico::VeicoloElettrico(const std::string mar, const std::string model, const float bat, const u_short cav, const u_int peso_vuoto, const u_int posti, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
+    :Veicolo(mar, model, peso_vuoto, posti, pass, tag, lun, lar, alt), capacita_batteria(bat), cavalli_elettrici(cav)
 {
 
 }
@@ -43,6 +43,11 @@ void VeicoloElettrico::setBatteria(const float percentuale_batteria)
 {
     // TO DO: controlli validita
     carica_batteria=percentuale_batteria;
+}
+
+void VeicoloElettrico::setCvElettrici(const u_short ce)
+{
+    cavalli_elettrici=ce;
 }
 
 bool VeicoloElettrico::checkCorrettezzaRifornimento(const Rifornimento& r) const
