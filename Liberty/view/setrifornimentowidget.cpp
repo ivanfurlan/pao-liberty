@@ -10,11 +10,8 @@
 
 SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, QWidget *parent) : QWidget(parent), tipo(new QComboBox(this)), quantita(new QLineEdit(this)), km(new QLineEdit(this)), totale(new QLineEdit(this))
 {
-    QHBoxLayout * layout = new QHBoxLayout();
+    QGridLayout * layout = new QGridLayout();
     setLayout(layout);
-
-    QVBoxLayout * labelLayout = new QVBoxLayout();
-    QVBoxLayout * editLayout = new QVBoxLayout();
 
     QLabel * tipoLabel = new QLabel("Tipo",this);
     QLabel * quantitaLabel = new QLabel("Quantita",this);
@@ -31,26 +28,25 @@ SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, Q
     km->setValidator(new QRegExpValidator(validator,this));
     totale->setValidator(new QRegExpValidator(validator,this));
 
-    labelLayout->addWidget(tipoLabel);
-    labelLayout->addWidget(quantitaLabel);
-    labelLayout->addWidget(kmLabel);
-    labelLayout->addWidget(totaleLabel);
-    editLayout->addWidget(tipo);
-    editLayout->addWidget(quantita);
-    editLayout->addWidget(km);
-    editLayout->addWidget(totale);
-    editLayout->addWidget(tipo);
+    u_short riga=0;
+
+    layout->addWidget(tipoLabel,riga++,0);
+    layout->addWidget(quantitaLabel,riga++,0);
+    layout->addWidget(kmLabel,riga++,0);
+    layout->addWidget(totaleLabel,riga++,0);
+    riga=0;
+    layout->addWidget(tipo,riga++,1);
+    layout->addWidget(quantita,riga++,1);
+    layout->addWidget(km,riga++,1);
+    layout->addWidget(totale,riga++,1);
 
     QPushButton * annulla = new QPushButton("Annulla", this);
     QPushButton * salva = new QPushButton("Salva", this);
-    labelLayout->addWidget(annulla);
-    editLayout->addWidget(salva);
+    layout->addWidget(annulla,riga,0);
+    layout->addWidget(salva,riga,1);
 
     connect(annulla,SIGNAL(clicked()),this,SLOT(close()));
     connect(salva,SIGNAL(clicked()),this,SLOT(prepareSignal()));
-
-    layout->addLayout(labelLayout);
-    layout->addLayout(editLayout);
 
     show();
 }

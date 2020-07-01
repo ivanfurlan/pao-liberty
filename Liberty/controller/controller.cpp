@@ -59,11 +59,11 @@ void Controller::eliminaRifornimento(u_int v, u_int r)
 void Controller::aggiungiRifornimento(u_int pos, Rifornimento::tipo_r tipo, float q, float k, float t)
 {
     Veicolo * veicolo = model->getVeicoloAt(pos).operator*();
-    model->rifornisci(veicolo,new Rifornimento(tipo, k, q, t/q));
+    model->rifornisci(veicolo,new Rifornimento(tipo, k, q, t/q)); // TO DO: eliminare zona allocata in caso di errore
 }
 
 void Controller::modificaRifornimento(u_int pos, u_int rif, Rifornimento::tipo_r tipo, float q, float k, float t)
 {
     Veicolo * veicolo = model->getVeicoloAt(pos).operator*();
-    model->modificaRifornimento(veicolo,rif,new Rifornimento(tipo, k, q, t/q));
+    model->modificaRifornimento(veicolo,rif,new Rifornimento(tipo, k, q, t/q)); // TO DO: eliminare zona allocata in caso di errore
 }

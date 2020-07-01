@@ -215,7 +215,7 @@ typename Container<T>::iterator Container<T>::remove(const iterator it)
     // TO DO: if(it>=end()) throw;
     iterator temp = it;
     iterator deleted = it;
-    while(temp<end()){
+    while(temp<end()-1){
         *temp = *(temp+1);
         ++temp;
     }

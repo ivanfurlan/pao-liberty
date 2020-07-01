@@ -15,6 +15,7 @@
 #include "../model/autoibrida.h"
 
 using std::list;
+Q_DECLARE_METATYPE(Rifornimento *)
 
 RifornimentiVeicoloWidget::RifornimentiVeicoloWidget(QWidget *parent) : QWidget(parent), tableRifornimenti(new QTableWidget(this)), aggiungi(new QPushButton("Aggiungi",this)), modifica(new QPushButton("Modifica",this)), elimina(new QPushButton("Elimina",this))
 {
@@ -69,11 +70,17 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
         tableRifornimenti->insertRow(r);
 
         QTableWidgetItem * tipo = new QTableWidgetItem(QString::fromStdString(Rifornimento::tipo_string[rif->getTipoRifornimento()]),pos);
+        tipo->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * quantita = new QTableWidgetItem(QString::number(rif->getQuantita())+" "+unita,pos);
+        quantita->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * km = new QTableWidgetItem(QString::number(rif->getKm())+" km",pos);
+        km->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * costo = new QTableWidgetItem(QString::number(rif->getCostoPerUnita())+" €/"+unita,pos);
+        costo->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * totale = new QTableWidgetItem(QString::number(rif->getCostoRifornimento())+" €",pos);
+        totale->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * consumo = new QTableWidgetItem(QString::number(0)+" km/"+unita,pos);
+        consumo->setData(Qt::UserRole,QVariant::fromValue(rif));
         tableRifornimenti->setItem(r, 0, tipo);
         tableRifornimenti->setItem(r, 1, quantita);
         tableRifornimenti->setItem(r, 2, km);
@@ -121,13 +128,17 @@ void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
     }
 
     SetRifornimentoWidget * set = new SetRifornimentoWidget(tipi);
-    if(modifica){
-        int row = tableRifornimenti->currentRow();
-        //set->setValues(v->);
+    if(modifica && tableRifornimenti->selectedRanges().count()==1){
+        auto row = tableRifornimenti->currentItem();
+        // TO DO: passare anche il tipo rifornimento attuale
+        set->setValues(row->data(Qt::UserRole).value<Rifornimento*>()->getQuantita(),row->data(Qt::UserRole).value<Rifornimento*>()->getKm(),row->data(Qt::UserRole).value<Rifornimento*>()->getCostoRifornimento());
+        connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
+    }else if(!modifica){
+        connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float)));
+    }else{
+        delete set;
     }
 
-    connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float)));
-    connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
 
 }
 
