@@ -3,7 +3,7 @@
 
 #include <QListWidgetItem>
 
-class Veicolo;
+#include "../model/veicolo.h"
 
 class VeicoloListWidgetItem : public QListWidgetItem
 {

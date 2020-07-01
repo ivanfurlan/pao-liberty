@@ -1,5 +1,4 @@
 #include "proprietalabel.h"
-#include <QRegExpValidator>
 
 ProprietaLabel::ProprietaLabel(const QString &n, const bool & m, QWidget *parent) : parent(parent), isModificabile(m), nome(new QLabel(n + ": ", parent)), valore(new QLabel(parent)), modificaValore(new QLineEdit(parent))
 {

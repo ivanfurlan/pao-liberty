@@ -3,8 +3,11 @@
 
 #include <QObject>
 
+#include <unistd.h>
+
 #include "../model/model.h"
 #include "../view/liberty.h"
+#include "../model/autoibrida.h"
 
 class Controller: public QObject
 {

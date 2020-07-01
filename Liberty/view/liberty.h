@@ -2,23 +2,17 @@
 #define LIBERTY_H
 
 #include <QWidget>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QListWidget>
-#include <QGridLayout>
 #include <QMenuBar>
-#include <QFile>
-#include <QLabel>
-#include <QSizeGrip>
-#include <QSplitter>
 #include <QTabWidget>
+#include <QMessageBox>
+#include <QFile>
 
-using std::string;
+#include "dettagliveicoliwidget.h"
+#include "rifornimentiveicolowidget.h"
 
-class DettagliVeicoliWidget;
-class Veicolo;
 class Controller;
-class RifornimentiVeicoloWidget;
 
 class Liberty : public QWidget
 {

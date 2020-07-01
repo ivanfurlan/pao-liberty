@@ -2,8 +2,9 @@
 #define VEICOLO_H
 
 #include <string>
-#include "rifornimento.h"
 #include <list>
+
+#include "rifornimento.h"
 
 using std::string;
 using std::list;

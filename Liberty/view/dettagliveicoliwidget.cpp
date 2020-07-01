@@ -1,6 +1,5 @@
 #include "dettagliveicoliwidget.h"
 #include "veicololistwidgetitem.h"
-#include <iostream>
 
 #include "../model/autoibrida.h"
 

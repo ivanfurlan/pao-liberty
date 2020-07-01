@@ -1,6 +1,4 @@
 #include "controller/controller.h"
-#include <unistd.h>
-#include "../model/autoibrida.h"
 
 Controller::Controller(Model *m, QObject *parent) : QObject(parent), view(nullptr), model(m)
 {

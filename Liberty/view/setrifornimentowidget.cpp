@@ -1,12 +1,4 @@
 #include "setrifornimentowidget.h"
-#include <QLabel>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QRegExpValidator>
-#include <QComboBox>
-#include "../model/rifornimento.h"
 
 SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, QWidget *parent) : QWidget(parent), tipo(new QComboBox(this)), quantita(new QLineEdit(this)), km(new QLineEdit(this)), totale(new QLineEdit(this))
 {

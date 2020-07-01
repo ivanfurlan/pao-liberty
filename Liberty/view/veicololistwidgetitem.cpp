@@ -1,6 +1,4 @@
 #include "veicololistwidgetitem.h"
-#include "../model/veicolo.h"
-#include <iostream>
 
 VeicoloListWidgetItem::VeicoloListWidgetItem() : QListWidgetItem()
 {

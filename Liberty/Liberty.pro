@@ -31,6 +31,7 @@ SOURCES += \
     view/proprietalabel.cpp \
     view/rifornimentiveicolowidget.cpp \
     view/setrifornimentowidget.cpp \
+    view/setveicolowidget.cpp \
     view/veicololistwidgetitem.cpp
 
 HEADERS += \
@@ -49,6 +50,7 @@ HEADERS += \
     view/proprietalabel.h \
     view/rifornimentiveicolowidget.h \
     view/setrifornimentowidget.h \
+    view/setveicolowidget.h \
     view/veicololistwidgetitem.h
 
 # Default rules for deployment.

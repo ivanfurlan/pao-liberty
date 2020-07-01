@@ -1,10 +1,13 @@
 #ifndef DETTAGLIVEICOLILAYOUT_H
 #define DETTAGLIVEICOLILAYOUT_H
 
-#include <QGridLayout>
-#include <QLabel>
+#include <QWidget>
 #include <QPushButton>
 #include <QListWidgetItem>
+
+#include <string>
+
+using std::string;
 
 #include "../model/veicolo.h"
 #include "proprietalabel.h"

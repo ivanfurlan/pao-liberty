@@ -2,8 +2,10 @@
 #define PROPRIETAVEICOLOLABEL_H
 
 #include <QHBoxLayout>
+#include <QWidget>
 #include <QLabel>
 #include <QLineEdit>
+#include <QRegExpValidator>
 
 class ProprietaLabel : public QHBoxLayout
 {

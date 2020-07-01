@@ -1,11 +1,6 @@
 #include "liberty.h"
-#include "../controller/controller.h"
-#include "dettagliveicoliwidget.h"
-#include "veicololistwidgetitem.h"
-#include "rifornimentiveicolowidget.h"
 
-#include <QMessageBox>
-#include <QTableWidget>
+#include "../controller/controller.h"
 
 Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(c), rifornimenti(new RifornimentiVeicoloWidget(this)), listaWidgetVeicoli(new QListWidget(this)), dettagli(new DettagliVeicoliWidget(this)), info_veicolo(new QTabWidget(this))
 {

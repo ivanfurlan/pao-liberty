@@ -2,8 +2,11 @@
 #define SETRIFORNIMENTOWIDGET_H
 
 #include <QWidget>
-#include <QLineEdit>
 #include <QComboBox>
+#include <QLineEdit>
+#include <QLabel>
+#include <QGridLayout>
+#include <QPushButton>
 #include "../model/rifornimento.h"
 
 class SetRifornimentoWidget : public QWidget

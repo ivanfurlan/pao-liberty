@@ -3,12 +3,20 @@
 
 #include <QWidget>
 #include <QTableWidget>
-#include <QListWidget>
 #include <QListWidgetItem>
 #include <QPushButton>
+#include <QLabel>
+#include <QHeaderView>
+#include <QMessageBox>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 #include "veicololistwidgetitem.h"
+#include "setrifornimentowidget.h"
+#include "../model/autoibrida.h"
 #include "../model/rifornimento.h"
+
+using std::list;
 
 class RifornimentiVeicoloWidget : public QWidget
 {

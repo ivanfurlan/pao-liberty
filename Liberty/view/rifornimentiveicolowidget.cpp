@@ -1,20 +1,5 @@
 #include "rifornimentiveicolowidget.h"
 
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QTableWidget>
-#include <QHeaderView>
-#include <QMessageBox>
-
-#include <list>
-#include "../model/rifornimento.h"
-#include "../model/veicolo.h"
-#include "proprietalabel.h"
-#include "setrifornimentowidget.h"
-#include "../model/autoibrida.h"
-
-using std::list;
 Q_DECLARE_METATYPE(Rifornimento *)
 
 RifornimentiVeicoloWidget::RifornimentiVeicoloWidget(QWidget *parent) : QWidget(parent), tableRifornimenti(new QTableWidget(this)), aggiungi(new QPushButton("Aggiungi",this)), modifica(new QPushButton("Modifica",this)), elimina(new QPushButton("Elimina",this))
