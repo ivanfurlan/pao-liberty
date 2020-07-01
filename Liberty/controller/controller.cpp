@@ -30,6 +30,24 @@ void Controller::eliminaVeicolo(const int &i)
     model->deleteV(model->getVeicoloAt(i));
 }
 
+void Controller::aggiungiVeicolo(QString tipoV, QString marca, QString modello, Rifornimento::tipo_r tipo_rifornimento, float peso, u_short posti, u_int cv_t, u_int cv_e, float serbatoio, float batteria)
+{
+    Veicolo * v;
+    if(tipoV=="Auto Termica"){
+        v = new AutoTermica(marca.toStdString(),modello.toStdString(),tipo_rifornimento,serbatoio,cv_t,peso,peso,posti);
+    }
+    if(tipoV=="Auto Elettrica"){
+        v = new AutoElettrica(marca.toStdString(),modello.toStdString(),batteria,cv_e,peso,peso,posti);
+    }
+    if(tipoV=="Auto Ibrida"){
+        v = new AutoIbrida(marca.toStdString(),modello.toStdString(),tipo_rifornimento,serbatoio,batteria,cv_t,cv_e,peso,peso,posti);
+    }
+
+    model->add(v);
+
+    view->updateLista();
+}
+
 void Controller::salvaModificheVeicolo(u_int pos, std::string marca, std::string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria)
 {
     Veicolo * veicolo = model->getVeicoloAt(pos).operator*();

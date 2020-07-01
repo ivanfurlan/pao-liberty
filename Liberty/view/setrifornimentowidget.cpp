@@ -15,10 +15,11 @@ SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, Q
     }
 
     QRegExp validator;
-    validator.setPattern("[0-9]+([/.|/,][0-9]+)?");
-    quantita->setValidator(new QRegExpValidator(validator,this));
-    km->setValidator(new QRegExpValidator(validator,this));
-    totale->setValidator(new QRegExpValidator(validator,this));
+    validator.setPattern("[0-9]+([/.][0-9]+)?");
+    QRegExpValidator * regValidator = new QRegExpValidator(validator,this);
+    quantita->setValidator(regValidator);
+    km->setValidator(regValidator);
+    totale->setValidator(regValidator);
 
     u_short riga=0;
 

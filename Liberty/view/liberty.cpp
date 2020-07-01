@@ -57,6 +57,13 @@ void Liberty::updateLista() // TO DO: da Togliere e far fare al controller?
     }
 }
 
+void Liberty::windowNuovoVeicolo()
+{
+    SetVeicoloWidget * add = new SetVeicoloWidget();
+    connect(add,SIGNAL(salvare(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)),controller,SLOT(aggiungiVeicolo(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)));
+    add->show();
+}
+
 void Liberty::askEliminaVeicolo()
 {
     QList<QListWidgetItem *> item = listaWidgetVeicoli->selectedItems();
@@ -89,13 +96,12 @@ void Liberty::visibilitaInfoVeicolo()
         info_veicolo->hide();
     else if(!item.empty() && info_veicolo->isHidden())
         info_veicolo->show();
-
 }
 
 
 void Liberty::setStyle()
 {
-    setMinimumSize(QSize(900,500));
+    setMinimumSize(QSize(970,500));
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     listaWidgetVeicoli->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Expanding);
 
@@ -111,23 +117,16 @@ void Liberty::addMenu()
     QMenuBar* menubar = new QMenuBar(this);
     QMenu* menu = new QMenu("File", menubar);
 
-    QMenu* menuNuovoVeicolo = new QMenu("Nuovo veicolo", menu);
-
-    QAction* autoElettrica = new QAction("Auto elettrica", menuNuovoVeicolo);
-    QAction* autoTermica = new QAction("Auto termica", menuNuovoVeicolo);
-    QAction* autoIbrida = new QAction("Auto ibrida", menuNuovoVeicolo);
+    QAction* nuovoVeicolo = new QAction("Nuovo veicolo", menu);
 
     QAction* elimina = new QAction("Elimina selezionati", menu);
     QAction* exit = new QAction("Esci", menu);
 
+    connect(nuovoVeicolo, SIGNAL(triggered()), this, SLOT(windowNuovoVeicolo()));
     connect(elimina, SIGNAL(triggered()), this, SLOT(askEliminaVeicolo()));
     connect(exit, SIGNAL(triggered()), this, SLOT(close()));
 
-    menuNuovoVeicolo->addAction(autoElettrica);
-    menuNuovoVeicolo->addAction(autoTermica);
-    menuNuovoVeicolo->addAction(autoIbrida);
-
-    menu->addMenu(menuNuovoVeicolo);
+    menu->addAction(nuovoVeicolo);
     menu->addAction(elimina);
     menu->addAction(exit);
 

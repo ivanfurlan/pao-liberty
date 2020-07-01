@@ -49,7 +49,7 @@ void ProprietaLabel::setProprietaNumber(const double & valore)
 
 
     QRegExp validator;
-    validator.setPattern("[0-9]+([/.|/,][0-9]+)?");
+    validator.setPattern("[0-9]+([/.][0-9]+)?");
     modificaValore->setValidator(new QRegExpValidator(validator,parent));
 }
 
@@ -67,7 +67,7 @@ void ProprietaLabel::setProprietaNumber(const double & valore, const QString & u
 
 
     QRegExp validator;
-    validator.setPattern("[0-9]+([/.|/,][0-9]+)?");
+    validator.setPattern("[0-9]+([/.][0-9]+)?");
     modificaValore->setValidator(new QRegExpValidator(validator,parent));
 
 }

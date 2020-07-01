@@ -11,6 +11,7 @@
 
 #include "dettagliveicoliwidget.h"
 #include "rifornimentiveicolowidget.h"
+#include "setveicolowidget.h"
 
 class Controller;
 
@@ -26,6 +27,7 @@ class Liberty : public QWidget
         void selezionatoVeicolo(const Veicolo *);
 
     public slots:
+        void windowNuovoVeicolo();
         void askEliminaVeicolo();
         void veicoloAggiunto(const Veicolo *, const u_int &);
         void visibilitaInfoVeicolo();

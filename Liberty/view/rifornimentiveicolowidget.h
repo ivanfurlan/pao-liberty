@@ -27,7 +27,7 @@ class RifornimentiVeicoloWidget : public QWidget
     public slots:
         void updateDati(QListWidgetItem* = nullptr);
         void askEliminaRifornimento();
-        void windowRifornimento(bool modifica=false);
+        void windowRifornimento(bool modifica = false);
         void prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float);
         void convertSignalModifica();
         void prepareSignalModifica(Rifornimento::tipo_r,float,float,float);
