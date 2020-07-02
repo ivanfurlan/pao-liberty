@@ -2,8 +2,8 @@
 
 Rifornimento::tipo_r VeicoloElettrico::tipo_rifornimento=Rifornimento::ELETTRICITA;
 
-VeicoloElettrico::VeicoloElettrico(const std::string mar, const std::string model, const float bat, const u_short cav, const u_int peso_vuoto, const u_int posti, const u_short pass, const u_int tag, const float lun, const float lar, const float alt)
-    :Veicolo(mar, model, peso_vuoto, posti, pass, tag, lun, lar, alt), capacita_batteria(bat), cavalli_elettrici(cav)
+VeicoloElettrico::VeicoloElettrico(const std::string mar, const std::string model, const float bat, const u_short cav, const u_int peso_vuoto, const u_int posti, const u_int km_i, const u_int tag, const u_int p_max, const float lun, const float lar, const float alt)
+    :Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), capacita_batteria(bat), cavalli_elettrici(cav)
 {
 
 }
@@ -20,12 +20,13 @@ u_short VeicoloElettrico::getCavalli() const
 
 u_short VeicoloElettrico::getKw() const
 {
+    // Non uso getCavalli() perché è virtuale e in caso di veicoli con eritarietà multipla voglio che si possa sapere i kw solo elettrici, altrimenti prenderebbe i totali
     return cavalli_elettrici*0.745699872;
 }
 
 float VeicoloElettrico::getConsumoElettricoMedio() const
 {
-    return getKmTotaliVeicolo() / getKwTotaliRicaricati();
+    return getSommaKmRifornimenti() / getKwTotaliRicaricati();
 }
 
 float VeicoloElettrico::getBatteria() const
@@ -33,16 +34,9 @@ float VeicoloElettrico::getBatteria() const
     return capacita_batteria;
 }
 
-void VeicoloElettrico::addRifornimento(Rifornimento *r)
+void VeicoloElettrico::setBatteria(const float capacita_batteria)
 {
-    Veicolo::addRifornimento(r);
-    setBatteria(100);
-}
-
-void VeicoloElettrico::setBatteria(const float percentuale_batteria)
-{
-    // TO DO: controlli validita
-    carica_batteria=percentuale_batteria;
+    this->capacita_batteria=capacita_batteria;
 }
 
 void VeicoloElettrico::setCvElettrici(const u_short ce)

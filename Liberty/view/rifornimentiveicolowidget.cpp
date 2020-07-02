@@ -58,13 +58,13 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
         tipo->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * quantita = new QTableWidgetItem(QString::number(rif->getQuantita())+" "+unita,pos);
         quantita->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * km = new QTableWidgetItem(QString::number(rif->getKm())+" km",pos);
+        QTableWidgetItem * km = new QTableWidgetItem(QString::number(rif->getKmParziale())+" km",pos);
         km->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * costo = new QTableWidgetItem(QString::number(rif->getCostoPerUnita())+" €/"+unita,pos);
         costo->setData(Qt::UserRole,QVariant::fromValue(rif));
         QTableWidgetItem * totale = new QTableWidgetItem(QString::number(rif->getCostoRifornimento())+" €",pos);
         totale->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * consumo = new QTableWidgetItem(QString::number(0)+" km/"+unita,pos);
+        QTableWidgetItem * consumo = new QTableWidgetItem(QString::number(rif->getConsumo())+" km/"+unita,pos);
         consumo->setData(Qt::UserRole,QVariant::fromValue(rif));
         tableRifornimenti->setItem(r, 0, tipo);
         tableRifornimenti->setItem(r, 1, quantita);
@@ -115,8 +115,8 @@ void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
     SetRifornimentoWidget * set = new SetRifornimentoWidget(tipi);
     if(modifica && tableRifornimenti->selectedRanges().count()==1){
         auto row = tableRifornimenti->currentItem();
-        // TO DO: passare anche il tipo rifornimento attuale
-        set->setValues(row->data(Qt::UserRole).value<Rifornimento*>()->getQuantita(),row->data(Qt::UserRole).value<Rifornimento*>()->getKm(),row->data(Qt::UserRole).value<Rifornimento*>()->getCostoRifornimento());
+        auto rif = row->data(Qt::UserRole).value<Rifornimento*>();
+        set->setValues(rif->getTipoRifornimento(),rif->getQuantita(),rif->getKmParziale(),rif->getCostoRifornimento());
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
     }else if(!modifica){
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float)));

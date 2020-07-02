@@ -109,8 +109,6 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
         cavalli_elettrici->hide();
     }
 
-    // ibrida mostrare cavalli elettrici e termici
-
     modifica->show();
     elimina->show();
     salva->hide();

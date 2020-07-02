@@ -7,7 +7,7 @@ class VeicoloTermico : public virtual Veicolo
 {
     public:
         // Costruttori
-        VeicoloTermico(const string, const string, const Rifornimento::tipo_r, const float, const u_short = 0, const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
+        VeicoloTermico(const string mar, const string model, const Rifornimento::tipo_r tr, const float ser, const u_short cav=0, const u_int peso_vuoto=0, const u_int posti=0, const u_int km_i=0, const u_int tag=0, const u_int p_max=0, const float lun=0, const float lar=0, const float alt=0);
 
         // Metodi costanti
         virtual u_int getPesoTrasportabile(const u_short num_passeggeri = 0) const override;
@@ -19,8 +19,7 @@ class VeicoloTermico : public virtual Veicolo
         string getTipoRifornimento() const;
 
         // Metodi non costanti
-        virtual void addRifornimento(Rifornimento*) override;
-        void setSerbatoio(const float); // TO DO: forse non serve
+        void setSerbatoio(const float);
         void setCvTermici(const u_short);
 
     protected:
@@ -32,7 +31,6 @@ class VeicoloTermico : public virtual Veicolo
     private:
         float getTotaleRifornito() const;
 
-        float pieno_serbatoio; // In % quanto pieno è il serbatorio // TO DO: forse non serve
         u_short cavalli_termici;
 };
 

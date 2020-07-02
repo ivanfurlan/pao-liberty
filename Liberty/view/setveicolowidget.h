@@ -19,7 +19,7 @@ class SetVeicoloWidget : public QWidget
         void tipoCambiato();
         void prepareSignal();
     signals:
-        void salvare(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
+        void salvare(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
     private:
 
         QLabel * cavalli_tLabel;
@@ -30,6 +30,7 @@ class SetVeicoloWidget : public QWidget
         QComboBox * tipo;
         QLineEdit * marca;
         QLineEdit * modello;
+        QLineEdit * km_iniziali;
         QComboBox * tipo_carburante;
         QLineEdit * peso;
         QLineEdit * posti_sedere;

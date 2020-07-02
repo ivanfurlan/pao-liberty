@@ -2,7 +2,7 @@
 
 Q_DECLARE_METATYPE(Rifornimento::tipo_r)
 
-SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_tLabel(new QLabel("Cavalli termici",this)), cavalli_eLabel(new QLabel("Cavalli elettrici",this)), serbatoioLabel(new QLabel("Capacità serbatoio",this)), batteriaLabel(new QLabel("Capacità batteria",this)), tipo(new QComboBox(this)), marca(new QLineEdit(this)), modello(new QLineEdit(this)), tipo_carburante(new QComboBox(this)), peso(new QLineEdit(this)), posti_sedere(new QLineEdit(this)), cavalli_t(new QLineEdit(this)), cavalli_e(new QLineEdit(this)), serbatoio(new QLineEdit(this)), batteria(new QLineEdit(this))
+SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_tLabel(new QLabel("Cavalli termici",this)), cavalli_eLabel(new QLabel("Cavalli elettrici",this)), serbatoioLabel(new QLabel("Capacità serbatoio",this)), batteriaLabel(new QLabel("Capacità batteria",this)), tipo(new QComboBox(this)), marca(new QLineEdit(this)), modello(new QLineEdit(this)), km_iniziali(new QLineEdit(this)), tipo_carburante(new QComboBox(this)), peso(new QLineEdit(this)), posti_sedere(new QLineEdit(this)), cavalli_t(new QLineEdit(this)), cavalli_e(new QLineEdit(this)), serbatoio(new QLineEdit(this)), batteria(new QLineEdit(this))
 {
 
     QGridLayout * layout = new QGridLayout();
@@ -19,6 +19,7 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     QLabel * tipoLabel = new QLabel("Tipo di veicolo",this);
     QLabel * marcaLabel = new QLabel("Marca",this);
     QLabel * modelloLabel = new QLabel("Modello",this);
+    QLabel * km_inizialiLabel = new QLabel("Km iniziali",this);
     QLabel * tipo_carburanteLabel = new QLabel("Tipo di carburante",this);
     QLabel * pesoLabel = new QLabel("Peso",this);
     QLabel * posti_sedereLabel = new QLabel("Posti",this);
@@ -26,6 +27,7 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     QRegExp validator;
     validator.setPattern("[0-9]+([/.][0-9]+)?");
     QRegExpValidator * regValidator = new QRegExpValidator(validator,this);
+    km_iniziali->setValidator(regValidator);
     peso->setValidator(regValidator);
     posti_sedere->setValidator(regValidator);
     cavalli_t->setValidator(regValidator);
@@ -38,6 +40,7 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     layout->addWidget(tipoLabel,riga++,0);
     layout->addWidget(marcaLabel,riga++,0);
     layout->addWidget(modelloLabel,riga++,0);
+    layout->addWidget(km_inizialiLabel,riga++,0);
     layout->addWidget(tipo_carburanteLabel,riga++,0);
     layout->addWidget(pesoLabel,riga++,0);
     layout->addWidget(posti_sedereLabel,riga++,0);
@@ -49,6 +52,7 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     layout->addWidget(tipo,riga++,1);
     layout->addWidget(marca,riga++,1);
     layout->addWidget(modello,riga++,1);
+    layout->addWidget(km_iniziali,riga++,1);
     layout->addWidget(tipo_carburante,riga++,1);
     layout->addWidget(peso,riga++,1);
     layout->addWidget(posti_sedere,riga++,1);
@@ -115,6 +119,6 @@ void SetVeicoloWidget::tipoCambiato()
 
 void SetVeicoloWidget::prepareSignal()
 {
-    emit salvare(tipo->currentText(),marca->text(),modello->text(),tipo_carburante->currentData().value<Rifornimento::tipo_r>(),peso->text().toFloat(),posti_sedere->text().toFloat(),cavalli_t->text().toFloat(),cavalli_e->text().toFloat(),serbatoio->text().toFloat(),batteria->text().toFloat());
+    emit salvare(tipo->currentText(),marca->text(),modello->text(),km_iniziali->text().toFloat(),tipo_carburante->currentData().value<Rifornimento::tipo_r>(),peso->text().toFloat(),posti_sedere->text().toFloat(),cavalli_t->text().toFloat(),cavalli_e->text().toFloat(),serbatoio->text().toFloat(),batteria->text().toFloat());
     close();
 }

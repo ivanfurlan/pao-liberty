@@ -14,7 +14,7 @@ class SetRifornimentoWidget : public QWidget
         Q_OBJECT
     public:
         explicit SetRifornimentoWidget(QList<string>, QWidget *parent = nullptr);
-        void setValues(float,float,float);
+        void setValues(Rifornimento::tipo_r tr,float,float,float);
 
     public slots:
         void prepareSignal();

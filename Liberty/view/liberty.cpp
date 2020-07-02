@@ -60,7 +60,7 @@ void Liberty::updateLista() // TO DO: da Togliere e far fare al controller?
 void Liberty::windowNuovoVeicolo()
 {
     SetVeicoloWidget * add = new SetVeicoloWidget();
-    connect(add,SIGNAL(salvare(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)),controller,SLOT(aggiungiVeicolo(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)));
+    connect(add,SIGNAL(salvare(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)),controller,SLOT(aggiungiVeicolo(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float)));
     add->show();
 }
 

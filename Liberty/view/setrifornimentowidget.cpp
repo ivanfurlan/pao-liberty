@@ -12,6 +12,7 @@ SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, Q
 
     for (auto t : tipi_concessi) {
         tipo->addItem(QString::fromStdString(t));
+        tipo->setItemData(tipo->count()-1,Rifornimento::string_tipo[t]);
     }
 
     QRegExp validator;
@@ -44,8 +45,9 @@ SetRifornimentoWidget::SetRifornimentoWidget(QList<std::string> tipi_concessi, Q
     show();
 }
 
-void SetRifornimentoWidget::setValues(float q, float k, float t)
+void SetRifornimentoWidget::setValues(Rifornimento::tipo_r tr, float q, float k, float t)
 {
+    tipo->setCurrentIndex(tipo->findData(tr));
     quantita->setText(QString::number(q));
     km->setText(QString::number(k));
     totale->setText(QString::number(t));

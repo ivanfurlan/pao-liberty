@@ -1,7 +1,7 @@
 #include "veicolo.h"
 
-Veicolo::Veicolo(const std::string mar, const std::string model, const u_int peso_vuoto, const u_int p_max, const u_short post, const u_int tag, const float lun, const float lar, const float alt)
-    : marca(mar), modello(model), peso(peso_vuoto), peso_max(p_max), posti(post), ultimo_tagliando_km(tag), lunghezza(lun), largheza(lar), altezza(alt)
+Veicolo::Veicolo(const std::string mar, const std::string model, const u_int peso_vuoto, const u_short post, const u_int km_i, const u_int tag, const u_int p_max, const float lun, const float lar, const float alt)
+    : marca(mar), modello(model), peso(peso_vuoto), km_iniziali(km_i), posti(post), ultimo_tagliando_km(tag), peso_max(p_max), lunghezza(lun), largheza(lar), altezza(alt)
 {
 
 }
@@ -94,8 +94,7 @@ void Veicolo::modificaRifornimento(u_int pos, Rifornimento * r)
 
 bool Veicolo::checkCorrettezzaRifornimento(const Rifornimento & r) const
 {
-    return (r.getKm()>=this->getKmTotaliVeicolo()) && \
-            (r.getCostoPerUnita()>0);
+    return (r.getQuantita()>0 && r.getKmParziale()>0 && r.getCostoRifornimento()>0);
 }
 
 float Veicolo::getTotaleRifornito(const Rifornimento::tipo_r tr) const
@@ -116,9 +115,19 @@ const Rifornimento &Veicolo::getUltimoRifornimento() const
 u_int Veicolo::getKmTotaliVeicolo() const
 {
     if(rifornimenti.empty())
-        return 0;
-    else
-        return rifornimenti.front()->getKm();
+        return km_iniziali;
+    else{
+        return km_iniziali+getSommaKmRifornimenti();
+    }
+}
+
+u_int Veicolo::getSommaKmRifornimenti() const
+{
+    u_int temp=0;
+    for (Rifornimento* r : rifornimenti) {
+        temp+=r->getKmParziale();
+    }
+    return temp;
 }
 
 u_int Veicolo::getUltimoTagliando() const
@@ -129,4 +138,9 @@ u_int Veicolo::getUltimoTagliando() const
 const list<Rifornimento *> &Veicolo::getRifornimenti() const
 {
     return rifornimenti;
+}
+
+u_int Veicolo::getKmIniziali() const
+{
+    return km_iniziali;
 }

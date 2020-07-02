@@ -7,7 +7,7 @@ class VeicoloElettrico : public virtual Veicolo
 {
     public:
         // Costruttori
-        VeicoloElettrico(const string, const string, const float, const u_short = 0, const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
+        VeicoloElettrico(const string mar, const string model, const float bat, const u_short cav=0, const u_int peso_vuoto=0, const u_int posti=0, const u_int km_i=0, const u_int tag=0, const u_int p_max=0, const float lun=0, const float lar=0, const float alt=0);
 
         // Metodi costanti
         virtual u_int getKmAutonomia() const override;
@@ -17,8 +17,7 @@ class VeicoloElettrico : public virtual Veicolo
         float getBatteria() const; //capienza batteria
 
         // Metodi non costanti
-        virtual void addRifornimento(Rifornimento*) override;
-        void setBatteria(const float); // TO DO: forse non serve
+        void setBatteria(const float capacita_batteria);
         void setCvElettrici(const u_short);
 
     protected:
@@ -30,7 +29,6 @@ class VeicoloElettrico : public virtual Veicolo
     private:
         float getKwTotaliRicaricati() const;
 
-        float carica_batteria; // In % quanto carica è la batteria // TO DO: forse non serve
         u_short cavalli_elettrici;
 };
 

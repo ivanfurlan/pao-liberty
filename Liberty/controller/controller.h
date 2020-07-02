@@ -23,11 +23,11 @@ class Controller: public QObject
         QString getNomeVeicolo(const int& i) const;
         void eliminaVeicolo(const int& i);
     public slots:
-        void aggiungiVeicolo(QString,QString,QString,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
+        void aggiungiVeicolo(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
         void salvaModificheVeicolo(u_int pos,string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria);
         void eliminaRifornimento(u_int,u_int);
-        void aggiungiRifornimento(u_int, Rifornimento::tipo_r, float,float,float);
-        void modificaRifornimento(u_int, u_int, Rifornimento::tipo_r, float,float,float);
+        void aggiungiRifornimento(u_int, Rifornimento::tipo_r, float,float,float, string = "l");
+        void modificaRifornimento(u_int, u_int, Rifornimento::tipo_r, float,float,float, string s = "l");
     private:
         Liberty* view;
         Model* model;

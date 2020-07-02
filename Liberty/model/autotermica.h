@@ -7,7 +7,7 @@ class AutoTermica : public VeicoloTermico
 {
     public:
         // Costruttori
-        AutoTermica(const string, const string, const Rifornimento::tipo_r, const float, const u_short = 0, const u_int = 0, const u_int = 0, const u_short = 0, const u_int = 0, const float = 0, const float = 0, const float = 0);
+        AutoTermica(const string mar, const string model, const Rifornimento::tipo_r tr, const float ser, const u_short cav=0, const u_int peso_vuoto=0, const u_int posti=0, const u_int km_i=0, const u_int tag=0, const u_int p_max=0, const float lun=0, const float lar=0, const float alt=0);
 
         // Metodi costanti
         virtual bool fareTagliando() const override;

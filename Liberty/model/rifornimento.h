@@ -13,24 +13,27 @@ class Rifornimento
         // Tipologie di rifornimento
         enum tipo_r{DIESEL, BENZINA, ELETTRICITA};
 
-        static map<tipo_r, string> tipo_string;
-        static map<string, tipo_r> string_tipo;
+        static map<tipo_r, string> tipo_string; // Associo ad ogni tipo una stringa
+        static map<string, tipo_r> string_tipo; // Associo ad ogni stringa un tipo
 
         // Costruttori
-        Rifornimento(const tipo_r t, const float km, const float qt, const float cpu);
+        Rifornimento(const tipo_r t, const float km, const float qt, const float c, string unita = "l");
 
         // Metodi Costanti
         float getCostoRifornimento() const;
-        float getKm() const;
+        float getKmParziale() const;
         float getQuantita() const;
         float getCostoPerUnita() const;
+        float getConsumo() const; // In km per unità
         tipo_r getTipoRifornimento() const;
+        string getUnitaMisura() const;
 
     private:
-        tipo_r tipo_rifornimento; // In litri o Kw/h
-        float km_totali;
+        string unita;
+        tipo_r tipo_rifornimento; // In litri o Kw
+        float km_parziale;
         float quantita_rifornita;
-        float costo_per_unita;
+        float costo_totale;
 };
 
 #endif // RIFORNIMENTO_H
