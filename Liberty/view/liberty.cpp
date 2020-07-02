@@ -32,7 +32,7 @@ Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(
     connect(listaWidgetVeicoli, SIGNAL(itemClicked(QListWidgetItem *)), rifornimenti, SLOT(updateDati(QListWidgetItem *)));
     connect(listaWidgetVeicoli, SIGNAL(itemSelectionChanged()), this, SLOT(visibilitaInfoVeicolo())); // sennò se si deselezionano tutti resta comunque una scheda aperta
 
-    connect(dettagli, SIGNAL(richiestaSalvataggio(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float)), controller, SLOT(salvaModificheVeicolo(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float)));
+    connect(dettagli, SIGNAL(richiestaSalvataggio(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float, u_int)), controller, SLOT(salvaModificheVeicolo(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float, u_int)));
 
     connect(rifornimenti, SIGNAL(eliminareRifornimento(u_int,u_int)), controller, SLOT(eliminaRifornimento(u_int,u_int)));
     connect(rifornimenti, SIGNAL(aggiungereRifornimento(u_int, Rifornimento::tipo_r,float,float,float)), controller, SLOT(aggiungiRifornimento(u_int, Rifornimento::tipo_r,float,float,float)));
@@ -46,7 +46,6 @@ Liberty::~Liberty()
 void Liberty::updateLista() // TO DO: da Togliere e far fare al controller?
 {
     info_veicolo->hide();
-    rifornimenti->hide();
     listaWidgetVeicoli->clear();
     int num = controller->getNumVeicoli();
 

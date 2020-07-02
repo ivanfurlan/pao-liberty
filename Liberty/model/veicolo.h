@@ -42,6 +42,7 @@ class Veicolo
         void setDimensioni(float, float, float);
         void setPeso(u_int);
         void setPosti(u_short);
+        void setKmIniziali(u_int);
         void eliminaRifornimento(u_int);
         void modificaRifornimento(u_int, Rifornimento *); // TO DO: fare virtual
 

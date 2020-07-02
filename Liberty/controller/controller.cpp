@@ -48,7 +48,7 @@ void Controller::aggiungiVeicolo(QString tipoV, QString marca, QString modello, 
     view->updateLista();
 }
 
-void Controller::salvaModificheVeicolo(u_int pos, std::string marca, std::string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria)
+void Controller::salvaModificheVeicolo(u_int pos, std::string marca, std::string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria, u_int km_i)
 {
     Veicolo * veicolo = model->getVeicoloAt(pos).operator*();
 
@@ -56,6 +56,7 @@ void Controller::salvaModificheVeicolo(u_int pos, std::string marca, std::string
     veicolo->setName(marca,modello);
     veicolo->setPeso(peso);
     veicolo->doTagliando(ultimo_tagliando);
+    veicolo->setKmIniziali(km_i);
 
     if(auto vt = dynamic_cast<VeicoloTermico *>(veicolo)){
         vt->setSerbatoio(capacita_serbatoio);

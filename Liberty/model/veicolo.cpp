@@ -73,6 +73,11 @@ void Veicolo::setPosti(u_short p)
     posti = p;
 }
 
+void Veicolo::setKmIniziali(u_int km_i)
+{
+    km_iniziali= km_i;
+}
+
 void Veicolo::eliminaRifornimento(u_int pos)
 {
     auto it = rifornimenti.begin();

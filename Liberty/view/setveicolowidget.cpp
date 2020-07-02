@@ -37,6 +37,7 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
 
     u_short riga=0;
 
+    // Inserisco nella prima colonna
     layout->addWidget(tipoLabel,riga++,0);
     layout->addWidget(marcaLabel,riga++,0);
     layout->addWidget(modelloLabel,riga++,0);
@@ -48,6 +49,8 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     layout->addWidget(cavalli_eLabel,riga++,0);
     layout->addWidget(serbatoioLabel,riga++,0);
     layout->addWidget(batteriaLabel,riga++,0);
+
+    // Inserisco nella seconda colonna
     riga=0;
     layout->addWidget(tipo,riga++,1);
     layout->addWidget(marca,riga++,1);
@@ -71,7 +74,6 @@ SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_t
     connect(salva,SIGNAL(clicked()),this,SLOT(prepareSignal()));
 
     tipoCambiato();
-    show();
 }
 
 void SetVeicoloWidget::tipoCambiato()

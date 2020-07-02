@@ -1,11 +1,8 @@
 #include "dettagliveicoliwidget.h"
-#include "veicololistwidgetitem.h"
-
-#include "../model/autoibrida.h"
 
 DettagliVeicoliWidget::DettagliVeicoliWidget(QWidget *parent) \
     : QWidget(), parent(parent), modifica(new QPushButton("Modifica", this)), elimina(new QPushButton("Elimina", this)), annulla(new QPushButton("Annulla", this)), salva(new QPushButton("Salva", this)), marca(new ProprietaLabel("Marca",true,this)), modello(new ProprietaLabel("Modello",true,this)), peso_vuoto(new ProprietaLabel("Peso",true,this)), posti(new ProprietaLabel("Posti",true,this)), \
-      km_totali(new ProprietaLabel("Km totali",this)), ultimo_tagliando(new ProprietaLabel("Ultimo tagliando a km",true,this)), tagliando_da_fare(new ProprietaLabel("Tagliano da fare",this)), cavalli(new ProprietaLabel("Cavalli",this)), cavalli_termici(new ProprietaLabel("Di cui termici",true,this)), cavalli_elettrici(new ProprietaLabel("Di cui elettrici",true,this)), kw(new ProprietaLabel("KW",this)),\
+      km_totali(new ProprietaLabel("Km attualli",this)), km_iniziali(new ProprietaLabel("Km iniziali",true,this)), ultimo_tagliando(new ProprietaLabel("Ultimo tagliando a km",true,this)), tagliando_da_fare(new ProprietaLabel("Tagliano da fare",this)), cavalli(new ProprietaLabel("Cavalli",this)), cavalli_termici(new ProprietaLabel("Di cui termici",true,this)), cavalli_elettrici(new ProprietaLabel("Di cui elettrici",true,this)), kw(new ProprietaLabel("KW",this)),\
       autonomia_massima(new ProprietaLabel("Autonomia massima",this)), carburante(new ProprietaLabel("Tipo carburante",this)), consumo_medio(new ProprietaLabel("Consumo medio",this)), consumo_elettrico_medio(new ProprietaLabel("Consumo elettrico medio",this)), capacita_serbatoio(new ProprietaLabel("Capacità serbatoio",true,this)), capacita_batteria(new ProprietaLabel("Capacità batteria",true,this))
 {
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -25,6 +22,7 @@ DettagliVeicoliWidget::DettagliVeicoliWidget(QWidget *parent) \
     dettagliLayout->addItem(peso_vuoto,++riga,0);
     dettagliLayout->addItem(posti,riga,1);
     dettagliLayout->addItem(km_totali,++riga,0);
+    dettagliLayout->addItem(km_iniziali,riga,1);
     dettagliLayout->addItem(ultimo_tagliando,++riga,0);
     dettagliLayout->addItem(tagliando_da_fare,riga,1);
     dettagliLayout->addItem(cavalli,++riga,0);
@@ -70,6 +68,7 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
     peso_vuoto->setProprietaNumber(v->getPeso(),"kg");
     posti->setProprietaNumber(v->getPosti());
     km_totali->setProprietaNumber(v->getKmTotaliVeicolo(),"km");
+    km_iniziali->setProprietaNumber(v->getKmIniziali(),"km");
     ultimo_tagliando->setProprietaNumber(v->getUltimoTagliando(),"km");
     tagliando_da_fare->setProprietaText(v->fareTagliando()?"Sì":"No");
     cavalli->setProprietaNumber(v->getCavalli(),"cv");
@@ -114,7 +113,6 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
     salva->hide();
     annulla->hide();
 
-    //show();
 }
 
 void DettagliVeicoliWidget::permettiModifica()
@@ -125,24 +123,7 @@ void DettagliVeicoliWidget::permettiModifica()
     annulla->show();
     salva->show();
 
-    //if(capacita_serbatoio->visible())
-
-
     emit startModifica(); // Rendo modificabili le lable
-    /*
-    marca->permettiModifica();
-    modello->permettiModifica();
-    peso_vuoto->permettiModifica();
-    posti->permettiModifica();
-    ultimo_tagliando->permettiModifica();
-    cavalli->permettiModifica();
-    carburante->permettiModifica();
-    capacita_serbatoio->permettiModifica();
-    carburante->permettiModifica();
-    consumo_medio->permettiModifica();
-    capacita_serbatoio->permettiModifica();
-    capacita_batteria->permettiModifica();*/
-
 }
 
 void DettagliVeicoliWidget::annullaModifica()
@@ -160,17 +141,17 @@ void DettagliVeicoliWidget::prepareSignalSalvataggio()
 {
     string marca = (this->marca->getTextModifica()).toStdString();
     string modello = (this->modello->getTextModifica()).toStdString();
-    u_int peso_vuoto = (this->peso_vuoto->getTextModifica()).toUInt();
-    u_short posti = (this->posti->getTextModifica()).toUShort();
-    //u_short posti = QString("4").toUShort();
-    u_int ultimo_tagliando = (this->ultimo_tagliando->getTextModifica()).toUInt();
-    u_short cavalli_termici = (this->cavalli_termici->getTextModifica()).toUShort();
-    u_short cavalli_elettrici = (this->cavalli_elettrici->getTextModifica()).toUShort();
-    //asdas carburante = (this->carburante->getTextModifica()).toStdString();
+    u_int peso_vuoto = (this->peso_vuoto->getTextModifica()).toFloat();
+    u_short posti = (this->posti->getTextModifica()).toFloat();
+    u_int km_iniziali = (this->km_iniziali->getTextModifica()).toFloat();
+    u_int ultimo_tagliando = (this->ultimo_tagliando->getTextModifica()).toFloat();
+    u_short cavalli_termici = (this->cavalli_termici->getTextModifica()).toFloat();
+    u_short cavalli_elettrici = (this->cavalli_elettrici->getTextModifica()).toFloat();
+
     float capacita_serbatoio = (this->capacita_serbatoio->getTextModifica()).toFloat();
     float capacita_batteria = (this->capacita_batteria->getTextModifica()).toFloat();
 
-    emit richiestaSalvataggio(dynamic_cast<VeicoloListWidgetItem *>(current_item)->getPosizione(), marca, modello, peso_vuoto, posti, ultimo_tagliando, cavalli_termici, cavalli_elettrici, capacita_serbatoio, capacita_batteria);
+    emit richiestaSalvataggio(dynamic_cast<VeicoloListWidgetItem *>(current_item)->getPosizione(), marca, modello, peso_vuoto, posti, ultimo_tagliando, cavalli_termici, cavalli_elettrici, capacita_serbatoio, capacita_batteria, km_iniziali);
 
     updateDati(current_item); //si può fare l'aggiornamento qua, perché quando viene emessa la emit il programma aspetta di aver sovolto tutti gli slot che la catturano prima di procedere, quindi l'aggiornamento dei dati verrà sempre fatto dopo che essi effettivamente siano stati modificati/salvati
 }

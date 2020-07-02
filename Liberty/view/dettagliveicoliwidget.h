@@ -7,10 +7,12 @@
 
 #include <string>
 
-using std::string;
-
-#include "../model/veicolo.h"
+#include "../model/autoibrida.h"
 #include "proprietalabel.h"
+#include "veicololistwidgetitem.h"
+
+
+using std::string;
 
 class DettagliVeicoliWidget : public QWidget
 {
@@ -26,7 +28,7 @@ class DettagliVeicoliWidget : public QWidget
         void prepareSignalSalvataggio();
     signals:
         void startModifica(); // segnale che viene preso da ogni ProprietàVeicoloLabel che "rende" appunto la lable modificabile. La connect è nel costruttore delle ProprietàVeicoloLabel
-        void richiestaSalvataggio(u_int pos, string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria);
+        void richiestaSalvataggio(u_int pos, string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria, u_int km_i);
     private:
         QWidget * parent;
         QListWidgetItem * current_item;
@@ -41,6 +43,7 @@ class DettagliVeicoliWidget : public QWidget
         ProprietaLabel * peso_vuoto;
         ProprietaLabel * posti;
         ProprietaLabel * km_totali;
+        ProprietaLabel * km_iniziali;
         ProprietaLabel * ultimo_tagliando;
         ProprietaLabel * tagliando_da_fare;
         ProprietaLabel * cavalli;
