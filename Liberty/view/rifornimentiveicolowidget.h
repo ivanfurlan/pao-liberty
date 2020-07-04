@@ -33,9 +33,9 @@ class RifornimentiVeicoloWidget : public QWidget
         void prepareSignalModifica(Rifornimento::tipo_r,float,float,float);
 
     signals:
-        void eliminareRifornimento(u_int,u_int);
+        void eliminareRifornimento(u_int,list<Rifornimento *>::const_iterator);
         void aggiungereRifornimento(u_int, Rifornimento::tipo_r,float,float,float);
-        void modificareRifornimento(u_int, u_int, Rifornimento::tipo_r,float,float,float);
+        void modificareRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float);
 
     private:
         QListWidgetItem * current_item;

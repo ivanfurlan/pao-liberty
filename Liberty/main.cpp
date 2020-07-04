@@ -36,6 +36,19 @@ void popola(Model * m){
     at->addRifornimento(new Rifornimento(Rifornimento::BENZINA,400,37.5,55.6));
     at->addRifornimento(new Rifornimento(Rifornimento::BENZINA,453,39.01,63.45));
 
+    Rifornimento * r= new Rifornimento(Rifornimento::BENZINA,4,4,4);
+    Rifornimento * s= new Rifornimento(*r);
+    Rifornimento * t= new Rifornimento(*r);;
+    *t=*r;
+    AutoTermica * att = new AutoTermica(*at);
+    AutoTermica * at2 = new AutoTermica(*at);
+    *at2=*att;
+    at2->addRifornimento(r);
+    at2->addRifornimento(s);
+    at2->addRifornimento(t);
+
+    m->add(at2);
+    m->add(att);
     m->add(at);
     m->add(new AutoTermica("Volvo","XC 40",Rifornimento::DIESEL,60,160,2200,5,184357));
     m->add(new AutoElettrica("Tesla","Model 3",75,245,2000,4,45000));

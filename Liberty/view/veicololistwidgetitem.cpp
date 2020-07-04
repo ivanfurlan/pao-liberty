@@ -7,6 +7,7 @@ VeicoloListWidgetItem::VeicoloListWidgetItem() : QListWidgetItem()
 
 VeicoloListWidgetItem::VeicoloListWidgetItem(const Veicolo * v, const u_int & p) : veicolo(v), posizione(p)
 {
+
 }
 
 const Veicolo * VeicoloListWidgetItem::getVeicolo() const

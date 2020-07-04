@@ -61,6 +61,7 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
     else
         item=current_item;
     VeicoloListWidgetItem * veicoloItem = dynamic_cast<VeicoloListWidgetItem*>(item);
+    if(veicoloItem){
     const Veicolo * v = veicoloItem->getVeicolo();
 
     marca->setProprietaText(QString::fromStdString(v->getMarca()));
@@ -72,7 +73,7 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
     ultimo_tagliando->setProprietaNumber(v->getUltimoTagliando(),"km");
     tagliando_da_fare->setProprietaText(v->fareTagliando()?"Sì":"No");
     cavalli->setProprietaNumber(v->getCavalli(),"cv");
-    kw->setProprietaNumber(v->getKw(),"KW");
+    kw->setProprietaNumber(v->getKw(),"Kw");
     autonomia_massima->setProprietaNumber(v->getKmAutonomia(),"km");
 
     const VeicoloTermico * vt = dynamic_cast<const VeicoloTermico *>(v);
@@ -95,7 +96,7 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
 
     const VeicoloElettrico * ve = dynamic_cast<const VeicoloElettrico *>(v);
     if(ve != nullptr){
-        consumo_elettrico_medio->setProprietaNumber(ve->getConsumoElettricoMedio(),"km/KW");
+        consumo_elettrico_medio->setProprietaNumber(ve->getConsumoElettricoMedio(),"km/Kw");
         capacita_batteria->setProprietaNumber(ve->getBatteria(),"KW");
         cavalli_elettrici->setProprietaNumber(ve->VeicoloElettrico::getCavalli(),"cv");
 
@@ -107,7 +108,7 @@ void DettagliVeicoliWidget::updateDati(QListWidgetItem * item)
         capacita_batteria->hide();
         cavalli_elettrici->hide();
     }
-
+}
     modifica->show();
     elimina->show();
     salva->hide();
@@ -154,5 +155,6 @@ void DettagliVeicoliWidget::prepareSignalSalvataggio()
     emit richiestaSalvataggio(dynamic_cast<VeicoloListWidgetItem *>(current_item)->getPosizione(), marca, modello, peso_vuoto, posti, ultimo_tagliando, cavalli_termici, cavalli_elettrici, capacita_serbatoio, capacita_batteria, km_iniziali);
 
     updateDati(current_item); //si può fare l'aggiornamento qua, perché quando viene emessa la emit il programma aspetta di aver sovolto tutti gli slot che la catturano prima di procedere, quindi l'aggiornamento dei dati verrà sempre fatto dopo che essi effettivamente siano stati modificati/salvati
+    current_item->setText(QString::fromStdString(dynamic_cast<VeicoloListWidgetItem*>(current_item)->getVeicolo()->getNomeEsteso()));
 }
 

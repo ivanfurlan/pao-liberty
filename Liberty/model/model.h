@@ -8,7 +8,6 @@ class Model
 {
     public:
         // Costruttori
-        Model();
         ~Model();
 
         // Metodi costanti
@@ -21,8 +20,8 @@ class Model
         void rifornisci(Veicolo *, Rifornimento *);
         void deleteV(const Container<Veicolo *>::const_iterator &);
         void deleteAll();
-        void eliminaRifornimento(u_int,u_int);
-        void modificaRifornimento(Veicolo *,u_int, Rifornimento *);
+        void eliminaRifornimento(const u_int &,list<Rifornimento *>::const_iterator);
+        void modificaRifornimento(Veicolo *, list<Rifornimento *>::const_iterator, Rifornimento *);
 
     private:
         Container<Veicolo*> veicoli;

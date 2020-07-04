@@ -2,7 +2,7 @@
 
 #include "../controller/controller.h"
 
-Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(c), rifornimenti(new RifornimentiVeicoloWidget(this)), listaWidgetVeicoli(new QListWidget(this)), dettagli(new DettagliVeicoliWidget(this)), info_veicolo(new QTabWidget(this))
+Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(c), rifornimenti(new RifornimentiVeicoloWidget(this)), listaWidgetVeicoli(new QListWidget(this)), dettagli(new DettagliVeicoliWidget(this)), info_veicolo(new QTabWidget(this)),errMess(new QErrorMessage(this))
 {
     mainLayout = new QVBoxLayout(this);
     addMenu();
@@ -34,13 +34,19 @@ Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(
 
     connect(dettagli, SIGNAL(richiestaSalvataggio(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float, u_int)), controller, SLOT(salvaModificheVeicolo(u_int, string, string, u_int, u_short, u_int, u_short, u_short, float, float, u_int)));
 
-    connect(rifornimenti, SIGNAL(eliminareRifornimento(u_int,u_int)), controller, SLOT(eliminaRifornimento(u_int,u_int)));
+    connect(rifornimenti, SIGNAL(eliminareRifornimento(u_int,list<Rifornimento *>::const_iterator)), controller, SLOT(eliminaRifornimento(u_int,list<Rifornimento *>::const_iterator)));
     connect(rifornimenti, SIGNAL(aggiungereRifornimento(u_int, Rifornimento::tipo_r,float,float,float)), controller, SLOT(aggiungiRifornimento(u_int, Rifornimento::tipo_r,float,float,float)));
-    connect(rifornimenti, SIGNAL(modificareRifornimento(u_int, u_int, Rifornimento::tipo_r,float,float,float)), controller, SLOT(modificaRifornimento(u_int, u_int, Rifornimento::tipo_r,float,float,float)));
+    connect(rifornimenti, SIGNAL(modificareRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float)), controller, SLOT(modificaRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float)));
 }
 
 Liberty::~Liberty()
 {
+}
+
+void Liberty::mostraErrore(QString errore)
+{
+    errMess->showMessage(errore);
+    errMess->exec();
 }
 
 void Liberty::updateLista() // TO DO: da Togliere e far fare al controller?
@@ -68,10 +74,10 @@ void Liberty::askEliminaVeicolo()
     QList<QListWidgetItem *> item = listaWidgetVeicoli->selectedItems();
     if (item.empty()) return;
     if (QMessageBox::question(this, "Elimina", "Eliminare TUTTI gli elementi selezionati?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes){
-        // TO DO: sarebbe da fare gl iiteratori con il puntatore non con la posizione
+
         u_short count=0;
         for (QListWidgetItem * i : item) {
-            auto vlwi=dynamic_cast<VeicoloListWidgetItem *>(i);
+            auto vlwi =dynamic_cast<VeicoloListWidgetItem* >(i);
             if(vlwi != nullptr){
                 controller->eliminaVeicolo(vlwi->getPosizione()-count);
                 count++;

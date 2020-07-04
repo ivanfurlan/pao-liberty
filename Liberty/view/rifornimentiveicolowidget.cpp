@@ -1,6 +1,6 @@
 #include "rifornimentiveicolowidget.h"
 
-Q_DECLARE_METATYPE(Rifornimento *)
+Q_DECLARE_METATYPE(list<Rifornimento *>::const_iterator)
 
 RifornimentiVeicoloWidget::RifornimentiVeicoloWidget(QWidget *parent) : QWidget(parent), tableRifornimenti(new QTableWidget(this)), aggiungi(new QPushButton("Aggiungi",this)), modifica(new QPushButton("Modifica",this)), elimina(new QPushButton("Elimina",this))
 {
@@ -41,11 +41,9 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
     tableRifornimenti->setRowCount(0);
     QString unita = "l";
 
-    u_int pos = QTableWidgetItem::UserType; // parto da QTableWidgetItem::UserType, cioè 1000, perché, come da documentazione, valori sotto QTableWidgetItem::UserType sono riservati da Qt
-
     const list<Rifornimento *> lista = dynamic_cast<VeicoloListWidgetItem *>(item)->getVeicolo()->getRifornimenti();
-    for (Rifornimento * rif : lista) {
-        if(rif->getTipoRifornimento()==Rifornimento::ELETTRICITA){
+    for (list<Rifornimento *>::const_iterator rif=lista.begin();rif!=lista.end();rif.operator++()) {
+        if((*rif)->getTipoRifornimento()==Rifornimento::ELETTRICITA){
             unita="Kw";
         }else{
             unita="l";
@@ -54,45 +52,45 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
         u_int r = tableRifornimenti->rowCount();
         tableRifornimenti->insertRow(r);
 
-        QTableWidgetItem * tipo = new QTableWidgetItem(QString::fromStdString(Rifornimento::tipo_string[rif->getTipoRifornimento()]),pos);
-        tipo->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * quantita = new QTableWidgetItem(QString::number(rif->getQuantita())+" "+unita,pos);
-        quantita->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * km = new QTableWidgetItem(QString::number(rif->getKmParziale())+" km",pos);
-        km->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * costo = new QTableWidgetItem(QString::number(rif->getCostoPerUnita())+" €/"+unita,pos);
-        costo->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * totale = new QTableWidgetItem(QString::number(rif->getCostoRifornimento())+" €",pos);
-        totale->setData(Qt::UserRole,QVariant::fromValue(rif));
-        QTableWidgetItem * consumo = new QTableWidgetItem(QString::number(rif->getConsumo())+" km/"+unita,pos);
-        consumo->setData(Qt::UserRole,QVariant::fromValue(rif));
+        u_int t = std::distance(lista.begin(),rif);
+        QTableWidgetItem * tipo = new QTableWidgetItem(QString::fromStdString(Rifornimento::tipo_string[(*rif)->getTipoRifornimento()]));
+        tipo->setData(Qt::UserRole,QVariant::fromValue(t));
+        QTableWidgetItem * quantita = new QTableWidgetItem(QString::number((*rif)->getQuantita())+" "+unita);
+        quantita->setData(Qt::UserRole,QVariant::fromValue(t));
+        QTableWidgetItem * km = new QTableWidgetItem(QString::number((*rif)->getKmParziale())+" km");
+        km->setData(Qt::UserRole,QVariant::fromValue(t));
+        QTableWidgetItem * costo = new QTableWidgetItem(QString::number((*rif)->getCostoPerUnita())+" €/"+unita);
+        costo->setData(Qt::UserRole,QVariant::fromValue(t));
+        QTableWidgetItem * totale = new QTableWidgetItem(QString::number((*rif)->getCostoRifornimento())+" €");
+        totale->setData(Qt::UserRole,QVariant::fromValue(t));
+        QTableWidgetItem * consumo = new QTableWidgetItem(QString::number((*rif)->getConsumo())+" km/"+unita);
+        consumo->setData(Qt::UserRole,QVariant::fromValue(t));
         tableRifornimenti->setItem(r, 0, tipo);
         tableRifornimenti->setItem(r, 1, quantita);
         tableRifornimenti->setItem(r, 2, km);
         tableRifornimenti->setItem(r, 3, costo);
         tableRifornimenti->setItem(r, 4, totale);
         tableRifornimenti->setItem(r, 5, consumo);
-        pos++;
     }
 }
 
 
 void RifornimentiVeicoloWidget::askEliminaRifornimento()
 {
-    QList<QTableWidgetItem *> item = tableRifornimenti->selectedItems();
-    if (item.empty()) return;
+    QList<QTableWidgetItem *> items = tableRifornimenti->selectedItems();
+    if (items.empty()) return;
     if (QMessageBox::question(this, "Elimina", "Eliminare TUTTI i rifornimenti selezionati?", QMessageBox::Yes|QMessageBox::No) == QMessageBox::Yes){
-        // TO DO: sarebbe da fare gl iiteratori con il puntatore non con la posizione
-
         auto vlwi=dynamic_cast<VeicoloListWidgetItem *>(current_item);
         if(vlwi != nullptr){
-            u_int count = QTableWidgetItem::UserType;
             int precedente =-1;
-            for (QTableWidgetItem * i : item) {
+            u_int count=0; // uso un contatore perché se elimino un rifornimento poi cambia la posizione dei successivi
+            for (QTableWidgetItem * i : items) {
                 if(i->row()!=precedente){
-                    emit eliminareRifornimento(vlwi->getPosizione(),i->type()-count);
+                    auto it = vlwi->getVeicolo()->getRifornimenti().begin();
+                    std::advance(it,i->data(Qt::UserRole).value<u_int>()-count);
+                    emit eliminareRifornimento(vlwi->getPosizione(),it);
                     precedente=i->row();
-                    count++;
+                    ++count;
                 }
             }}
     }
@@ -114,8 +112,10 @@ void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
 
     SetRifornimentoWidget * set = new SetRifornimentoWidget(tipi);
     if(modifica && tableRifornimenti->selectedRanges().count()==1){
-        auto row = tableRifornimenti->currentItem();
-        auto rif = row->data(Qt::UserRole).value<Rifornimento*>();
+        auto row = tableRifornimenti->currentItem(); // chiamo row, anche se in realtà è una singola cella, ma i dati sono presenti su qualsiasi cella della riga
+        auto it = v->getRifornimenti().begin();
+        std::advance(it,row->data(Qt::UserRole).value<u_int>());
+        Rifornimento * rif = *it;
         set->setValues(rif->getTipoRifornimento(),rif->getQuantita(),rif->getKmParziale(),rif->getCostoRifornimento());
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
     }else if(!modifica){
@@ -148,12 +148,10 @@ void RifornimentiVeicoloWidget::prepareSignalModifica(Rifornimento::tipo_r tipo,
     auto vlwi=dynamic_cast<VeicoloListWidgetItem *>(current_item);
     if(vlwi != nullptr){
         QTableWidgetItem * item = tableRifornimenti->currentItem();
-        emit modificareRifornimento(vlwi->getPosizione(),item->type()-QTableWidgetItem::UserType,tipo,q,k,t);
+        auto it = vlwi->getVeicolo()->getRifornimenti().begin();
+        std::advance(it,item->data(Qt::UserRole).value<u_int>());
+        emit modificareRifornimento(vlwi->getPosizione(),it,tipo,q,k,t);
         updateDati(current_item);
     }
 
 }
-
-// add riga
-// chexkbox per eliminare/modificare
-// nuova finestra per aggiungere

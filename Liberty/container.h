@@ -1,6 +1,8 @@
 #ifndef CONTAINER_H
 #define CONTAINER_H
 
+#include <stdexcept>
+
 #define INCREMENT_CAPACITY 2
 // TO DO: ricontrollare tutto, siccome preso dall'anno scorso
 
@@ -10,7 +12,7 @@ class Container{
         class iterator;
         class const_iterator;
 
-        Container(int =0); // TO DO: mettere almeno =3
+        Container(int = INCREMENT_CAPACITY);
         Container(const Container &) = default;
         ~Container();
 
@@ -35,7 +37,7 @@ class Container{
         const T& back() const;
         const T& operator[](const int &) const;
 
-        iterator search(const T &); // TO DO: non credo serva //non è implementata, cioè credo serva solo per poterla chiamare su oggetti non costanti, ma poi utilizzi quella sotto. DA CONTROLLARE
+        iterator search(const T &); // TO DO: non credo serva
         iterator begin();
         iterator end();
 
@@ -71,8 +73,8 @@ class Container{
                 operator const_iterator() const;
 
             private:
-                int index;
                 Container * cPtr;
+                int index;
 
         };
 
@@ -151,7 +153,7 @@ void Container<T>::resize()
 template <typename T>
 void Container<T>::resize(unsigned int newSize)
 {
-    // TO DO: if(newSize < used) throw;
+    if(newSize < used) throw std::invalid_argument("La nuova dimensione di Container non può essere inferiore a quella utilizzata");
     T* newArray = new T[newSize]; // creo un nuovo array
     copyArray(array, newArray); // copio il vecchio array nel nuovo
     delete[] array; // cancello il vecchio array
@@ -212,7 +214,7 @@ typename Container<T>::iterator Container<T>::removeBack()
 template <typename T>
 typename Container<T>::iterator Container<T>::remove(const iterator it)
 {
-    // TO DO: if(it>=end()) throw;
+    if(it>=end()) throw std::out_of_range("Impossibile eliminare un elemento di Container che non è utilizzato");
     iterator temp = it;
     iterator deleted = it;
     while(temp<end()-1){
@@ -232,14 +234,14 @@ T& Container<T>::at(const int & index)
 
 template <typename T>
 T& Container<T>::front(){
-    // TO DO: if(used==0)throw;
+    if(used==0) throw std::logic_error("Container vuoto - Impossibile ritornare l'elemento");
     return array[0];
 }
 
 template <typename T>
 T& Container<T>::back()
 {
-    // TO DO: if(used==0)throw;
+    if(used==0) throw std::logic_error("Container vuoto - Impossibile ritornare l'elemento");
     return array[used];
 }
 
@@ -258,14 +260,14 @@ const T& Container<T>::at(const int & index)const
 template <typename T>
 const T& Container<T>::front()const
 {
-    // TO DO: if(used==0)throw;
+    if(used==0) throw new std::logic_error("Container vuoto - Impossibile ritornare l'elemento");;
     return array[0];
 }
 
 template <typename T>
 const T& Container<T>::back()const
 {
-    // TO DO: if(used==0)throw;
+    if(used==0) throw std::logic_error("Container vuoto - Impossibile ritornare l'elemento");;
     return array[used];
 }
 
@@ -276,7 +278,7 @@ const T& Container<T>::operator[](const int & index) const
 }
 
 template <typename T>
-typename Container<T>::iterator Container<T>::search(const T & value) // TO DO: credo si possa ritornate iterator, poi nel caso c'è la conversione a const_iterator
+typename Container<T>::iterator Container<T>::search(const T & value)
 {
     for(iterator it = begin(); it<end(); ++it){ // scorro e cerco l'elemento
         if(*it == value)
@@ -286,7 +288,7 @@ typename Container<T>::iterator Container<T>::search(const T & value) // TO DO: 
 }
 
 template <typename T>
-typename Container<T>::const_iterator Container<T>::search(const T & value) const // TO DO: credo si possa ritornate iterator, poi nel caso c'è la conversione a const_iterator
+typename Container<T>::const_iterator Container<T>::search(const T & value) const
 {
     for(const_iterator it = begin(); it<end(); ++it){ // scorro e cerco l'elemento
         if(*it == value)
@@ -341,10 +343,9 @@ Container<T>::iterator::operator const_iterator() const
 }
 
 template <typename T>
-Container<T>::iterator::iterator()
+Container<T>::iterator::iterator() : cPtr(nullptr), index(0)
 {
-    cPtr = nullptr;
-    index = 0;
+
 }
 
 template <typename T>
@@ -356,7 +357,9 @@ Container<T>::iterator::iterator(Container<T> & c, const int i) : cPtr(&c), inde
 template <typename T>
 typename Container<T>::iterator& Container<T>::iterator::operator++()
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index>=cPtr->countElements()){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     index++;
     return *this;
 }
@@ -364,7 +367,9 @@ typename Container<T>::iterator& Container<T>::iterator::operator++()
 template <typename T>
 typename Container<T>::iterator Container<T>::iterator::operator++(int)
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index>=cPtr->countElements()){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     iterator oldIterator = *this;
     index++;
     return oldIterator;
@@ -373,7 +378,9 @@ typename Container<T>::iterator Container<T>::iterator::operator++(int)
 template <typename T>
 typename Container<T>::iterator& Container<T>::iterator::operator--()
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index<=0){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     index--;
     return *this;
 }
@@ -381,7 +388,9 @@ typename Container<T>::iterator& Container<T>::iterator::operator--()
 template <typename T>
 typename Container<T>::iterator Container<T>::iterator::operator--(int)
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index<=0){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     iterator oldIterator = *this;
     index--;
     return oldIterator;
@@ -449,7 +458,9 @@ const T& Container<T>::const_iterator::operator*() const
 template <typename T>
 typename Container<T>::const_iterator& Container<T>::const_iterator::operator++()
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index>=cPtr->countElements()){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     index++;
     return *this;
 }
@@ -457,7 +468,9 @@ typename Container<T>::const_iterator& Container<T>::const_iterator::operator++(
 template <typename T>
 typename Container<T>::const_iterator Container<T>::const_iterator::operator++(int)
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index>=cPtr->countElements()){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     const_iterator oldIterator = *this;
     index++;
     return oldIterator;
@@ -466,7 +479,9 @@ typename Container<T>::const_iterator Container<T>::const_iterator::operator++(i
 template <typename T>
 typename Container<T>::const_iterator& Container<T>::const_iterator::operator--()
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index<=0){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     index--;
     return *this;
 }
@@ -474,7 +489,9 @@ typename Container<T>::const_iterator& Container<T>::const_iterator::operator--(
 template <typename T>
 typename Container<T>::const_iterator Container<T>::const_iterator::operator--(int)
 {
-    // TO DO: controllare limiti inferiori e superiori dell'array
+    if(index<=0){
+        throw std::out_of_range("Iteratore oltre la zona utilizzata dal container");
+    }
     const_iterator oldIterator = *this;
     index--;
     return oldIterator;
@@ -517,5 +534,12 @@ bool Container<T>::const_iterator::operator==(const const_iterator & it) const
 {
     return index == it.index;
 }
+
+template<typename T>
+bool Container<T>::iterator::operator>=(const Container<T>::iterator & it) const
+{
+    return index>=it.index;
+}
+
 
 #endif // CONTAINER_H

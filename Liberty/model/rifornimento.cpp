@@ -1,23 +1,23 @@
 #include "rifornimento.h"
 
-map<Rifornimento::tipo_r,std::string> Rifornimento::tipo_string = {{Rifornimento::DIESEL,"Diesel"},{Rifornimento::BENZINA,"Benzina"},{Rifornimento::ELETTRICITA,"Elettricità"}};
-map<std::string,Rifornimento::tipo_r> Rifornimento::string_tipo = {{"Diesel",Rifornimento::DIESEL},{"Benzina",Rifornimento::BENZINA},{"Elettricità",Rifornimento::ELETTRICITA}};
+map<Rifornimento::tipo_r,std::string> Rifornimento::tipo_string = {{Rifornimento::DIESEL,"Diesel"},{Rifornimento::BENZINA,"Benzina"},{Rifornimento::GPL,"Gpl"},{Rifornimento::ELETTRICITA,"Elettricità"}};
+map<std::string,Rifornimento::tipo_r> Rifornimento::string_tipo = {{"Diesel",Rifornimento::DIESEL},{"Benzina",Rifornimento::BENZINA},{"Gpl",Rifornimento::GPL},{"Elettricità",Rifornimento::ELETTRICITA}};
 
-Rifornimento::Rifornimento(Rifornimento::tipo_r t, float km, float qt, float c, string uni) : unita(uni), tipo_rifornimento(t), km_parziale(km), quantita_rifornita(qt), costo_totale(c)
+Rifornimento::Rifornimento(const Rifornimento::tipo_r &t, const float &km, const float &qt, const float &c, const string uni) : unita(uni), tipo_rifornimento(t), km_parziale(km), quantita_rifornita(qt), costo_totale(c)
 {
 }
 
-float Rifornimento::getCostoRifornimento() const
+const float& Rifornimento::getCostoRifornimento() const
 {
     return costo_totale;
 }
 
-float Rifornimento::getKmParziale() const
+const float& Rifornimento::getKmParziale() const
 {
     return this->km_parziale;
 }
 
-float Rifornimento::getQuantita() const
+const float& Rifornimento::getQuantita() const
 {
     return quantita_rifornita;
 }
@@ -32,12 +32,12 @@ float Rifornimento::getConsumo() const
     return km_parziale/quantita_rifornita;
 }
 
-Rifornimento::tipo_r Rifornimento::getTipoRifornimento() const
+const Rifornimento::tipo_r& Rifornimento::getTipoRifornimento() const
 {
     return tipo_rifornimento;
 }
 
-std::string Rifornimento::getUnitaMisura() const
+const std::string& Rifornimento::getUnitaMisura() const
 {
     return unita;
 }

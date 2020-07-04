@@ -8,6 +8,7 @@
 #include <QTabWidget>
 #include <QMessageBox>
 #include <QFile>
+#include <QErrorMessage>
 
 #include "dettagliveicoliwidget.h"
 #include "rifornimentiveicolowidget.h"
@@ -22,15 +23,17 @@ class Liberty : public QWidget
         Liberty(Controller* c,QWidget *parent = nullptr);
         ~Liberty();
 
-        void updateLista();
-    signals:
-        void selezionatoVeicolo(const Veicolo *);
+        void mostraErrore(QString = "Si è verificato un errore nell'eseguire l'operazione richiesta");
 
     public slots:
+        void updateLista();
         void windowNuovoVeicolo();
         void askEliminaVeicolo();
         void veicoloAggiunto(const Veicolo *, const u_int &);
         void visibilitaInfoVeicolo();
+
+    signals:
+        void selezionatoVeicolo(const Veicolo *);
 
     private:
         void setStyle();
@@ -43,5 +46,7 @@ class Liberty : public QWidget
         QListWidget* listaWidgetVeicoli;
         DettagliVeicoliWidget* dettagli;
         QTabWidget * info_veicolo;
+
+        QErrorMessage * errMess;
 };
 #endif // LIBERTY_H

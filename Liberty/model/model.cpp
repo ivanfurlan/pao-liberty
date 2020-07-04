@@ -1,8 +1,4 @@
 #include "model.h"
-Model::Model()
-{
-
-}
 
 Model::~Model()
 {
@@ -34,7 +30,7 @@ void Model::rifornisci(Veicolo * v, Rifornimento * r)
 void Model::deleteV(const Container<Veicolo*>::const_iterator & it)
 {
     Veicolo * temp = it.operator*();
-    veicoli.remove(temp);
+    veicoli.remove(*it);
     delete temp;
 }
 
@@ -45,12 +41,12 @@ void Model::deleteAll()
     }
 }
 
-void Model::eliminaRifornimento(u_int v, u_int r)
+void Model::eliminaRifornimento(const u_int &v, list<Rifornimento *>::const_iterator it)
 {
-    veicoli[v]->eliminaRifornimento(r);
+    veicoli[v]->eliminaRifornimento(it);
 }
 
-void Model::modificaRifornimento(Veicolo *v, u_int pr, Rifornimento * r)
+void Model::modificaRifornimento(Veicolo *v, list<Rifornimento *>::const_iterator it, Rifornimento * r)
 {
-    v->modificaRifornimento(pr,r);
+    v->modificaRifornimento(it,r);
 }

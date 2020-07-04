@@ -1,9 +1,9 @@
 #include "autoibrida.h"
 
-AutoIbrida::AutoIbrida(const std::string mar, const std::string model, const Rifornimento::tipo_r tr, const float ser, const float bat, const u_short cav_t, const u_short cav_e, const u_int peso_vuoto, const u_int posti, const u_int km_i, const u_int tag, const u_int p_max, const float lun, const float lar, const float alt)
+AutoIbrida::AutoIbrida(const std::string &mar, const std::string &model, const Rifornimento::tipo_r &tr, const float &ser, const float &bat, const u_short &cav_t, const u_short &cav_e, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const u_int &p_max, const float &lun, const float &lar, const float &alt)
     : Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt),  VeicoloTermico(mar, model, tr, ser, cav_t, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), VeicoloElettrico(mar, model, bat, cav_e, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt)
 {
-    // TO DO: provare a mettere solo i primi campi nel costruttore del veicolo termico ed elettrico
+
 }
 
 u_int AutoIbrida::getKmAutonomia() const
@@ -36,11 +36,17 @@ u_int AutoIbrida::getSommaKmRifornimenti() const
 
 }
 
+AutoIbrida *AutoIbrida::clone() const
+{
+    return new AutoIbrida(*this);
+
+}
+
 bool AutoIbrida::checkCorrettezzaRifornimento(const Rifornimento & r) const
 {
-    if(r.getTipoRifornimento()==VeicoloElettrico::tipo_rifornimento)
+    if(r.getTipoRifornimento()==Rifornimento::ELETTRICITA)
         return VeicoloElettrico::checkCorrettezzaRifornimento(r);
-    else if(r.getTipoRifornimento()==VeicoloTermico::tipo_rifornimento)
+    else if(r.getTipoRifornimento()==VeicoloTermico::getTipoRifornimentoEnum())
         return VeicoloTermico::checkCorrettezzaRifornimento(r);
     else
         return false;
@@ -54,5 +60,5 @@ u_short AutoIbrida::getCavalli() const
 u_short AutoIbrida::getKw() const
 {
     // dovevo ridefinisro per evitare l'ambiguità
-    return (getCavalli())*0.745699872;
+    return getCavalli()*0.745699872;
 }

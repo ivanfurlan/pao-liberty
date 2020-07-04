@@ -4,7 +4,6 @@ Q_DECLARE_METATYPE(Rifornimento::tipo_r)
 
 SetVeicoloWidget::SetVeicoloWidget(QWidget *parent) : QWidget(parent), cavalli_tLabel(new QLabel("Cavalli termici",this)), cavalli_eLabel(new QLabel("Cavalli elettrici",this)), serbatoioLabel(new QLabel("Capacità serbatoio",this)), batteriaLabel(new QLabel("Capacità batteria",this)), tipo(new QComboBox(this)), marca(new QLineEdit(this)), modello(new QLineEdit(this)), km_iniziali(new QLineEdit(this)), tipo_carburante(new QComboBox(this)), peso(new QLineEdit(this)), posti_sedere(new QLineEdit(this)), cavalli_t(new QLineEdit(this)), cavalli_e(new QLineEdit(this)), serbatoio(new QLineEdit(this)), batteria(new QLineEdit(this))
 {
-
     QGridLayout * layout = new QGridLayout();
     setLayout(layout);
 
@@ -95,8 +94,8 @@ void SetVeicoloWidget::tipoCambiato()
         serbatoioLabel->show();
     }
     if(tipoV=="Auto Elettrica"){
-        tipo_carburante->removeItem(tipo_carburante->findData(Rifornimento::BENZINA));
-        tipo_carburante->removeItem(tipo_carburante->findData(Rifornimento::DIESEL));
+        tipo_carburante->clear();
+        tipo_carburante->addItem(QString::fromStdString(Rifornimento::tipo_string[Rifornimento::ELETTRICITA]));
         cavalli_e->show();
         batteria->show();
         cavalli_t->hide();
