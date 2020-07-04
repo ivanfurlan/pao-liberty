@@ -2,8 +2,8 @@
 
 Rifornimento::tipo_r VeicoloElettrico::tipo_rifornimento=Rifornimento::ELETTRICITA;
 
-VeicoloElettrico::VeicoloElettrico(const std::string &mar, const std::string &model, const float &bat, const u_short &cav, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const u_int &p_max, const float &lun, const float &lar, const float &alt)
-    :Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), cavalli_elettrici(cav), capacita_batteria(bat)
+VeicoloElettrico::VeicoloElettrico(const std::string &mar, const std::string &model, const float &bat, const u_short &cav, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const string& unita, const u_int &p_max, const float &lun, const float &lar, const float &alt)
+    :Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), cavalli_elettrici(cav), capacita_batteria(bat), unita_rifornimento(unita)
 {
     if(capacita_batteria<=0)
         throw std::domain_error("La capacità della batteria deve essere maggiore di 0");
@@ -33,6 +33,11 @@ float VeicoloElettrico::getConsumoElettricoMedio() const
 const float& VeicoloElettrico::getBatteria() const
 {
     return capacita_batteria;
+}
+
+const std::string &VeicoloElettrico::getUnitaRifornimento() const
+{
+    return unita_rifornimento;
 }
 
 void VeicoloElettrico::setBatteria(const float &capacita_batteria)

@@ -1,7 +1,7 @@
 #include "veicolotermico.h"
 
-VeicoloTermico::VeicoloTermico(const std::string &mar, const std::string &model, const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const u_int &p_max, const float &lun, const float &lar, const float &alt)
-    :Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), cavalli_termici(cav), tipo_rifornimento(tr), capacita_serbatoio(ser)
+VeicoloTermico::VeicoloTermico(const std::string &mar, const std::string &model, const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const string& unita, const u_int &p_max, const float &lun, const float &lar, const float &alt)
+    :Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), cavalli_termici(cav), tipo_rifornimento(tr), capacita_serbatoio(ser), unita_rifornimento(unita)
 {
     if(capacita_serbatoio<=0)
         throw std::domain_error("La capacità del serbatoio deve essere maggiore di 0");
@@ -47,6 +47,11 @@ const string& VeicoloTermico::getTipoRifornimento() const
 const Rifornimento::tipo_r& VeicoloTermico::getTipoRifornimentoEnum() const
 {
     return tipo_rifornimento;
+}
+
+const std::string &VeicoloTermico::getUnitaRifornimento() const
+{
+    return unita_rifornimento;
 }
 
 void VeicoloTermico::setSerbatoio(const float &capacita_serbatoio)

@@ -1,7 +1,7 @@
 #include "autoibrida.h"
 
-AutoIbrida::AutoIbrida(const std::string &mar, const std::string &model, const Rifornimento::tipo_r &tr, const float &ser, const float &bat, const u_short &cav_t, const u_short &cav_e, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const u_int &p_max, const float &lun, const float &lar, const float &alt)
-    : Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt),  VeicoloTermico(mar, model, tr, ser, cav_t, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt), VeicoloElettrico(mar, model, bat, cav_e, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt)
+AutoIbrida::AutoIbrida(const std::string &mar, const std::string &model, const Rifornimento::tipo_r &tr, const float &ser, const float &bat, const u_short &cav_t, const u_short &cav_e, const u_int &peso_vuoto, const u_int &posti, const u_int &km_i, const u_int &tag, const string& unita_t, const string& unita_e, const u_int &p_max, const float &lun, const float &lar, const float &alt)
+    : Veicolo(mar, model, peso_vuoto, posti, km_i, tag, p_max, lun, lar, alt),  VeicoloTermico(mar, model, tr, ser, cav_t, peso_vuoto, posti, km_i, tag, unita_t, p_max, lun, lar, alt), VeicoloElettrico(mar, model, bat, cav_e, peso_vuoto, posti, km_i, tag, unita_e, p_max, lun, lar, alt)
 {
 
 }

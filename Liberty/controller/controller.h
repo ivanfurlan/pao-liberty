@@ -18,16 +18,16 @@ class Controller: public QObject
         Controller(Model* m, QObject* parent = nullptr);
 
         void setView(Liberty* );
-        const Veicolo * getVeicoloAt(const int& i) const; //TO DO: boh
+        const Veicolo *getVeicoloAt(const int& i) const;
         int getNumVeicoli() const;
         QString getNomeVeicolo(const int& i) const;
         void eliminaVeicolo(const int& i);
     public slots:
-        void aggiungiVeicolo(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
-        void salvaModificheVeicolo(u_int pos,string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria, u_int km_i);
-        void eliminaRifornimento(u_int,list<Rifornimento *>::const_iterator);
-        void aggiungiRifornimento(u_int, Rifornimento::tipo_r, float,float,float, string = "l");
-        void modificaRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r, float,float,float, string s = "l");
+        void aggiungiVeicolo(const QString,const QString,const QString,const float,const Rifornimento::tipo_r,const float,const u_short,const u_int,const u_int,const float,const float);
+        void salvaModificheVeicolo(const u_int pos,const string marca, const string modello, const u_int peso, const u_short posti, const u_int ultimo_tagliando, const u_short cv_t, const u_short cv_e, const float capacita_serbatoio, const float capacita_batteria, const u_int km_i);
+        void eliminaRifornimento(const u_int,const list<Rifornimento *>::const_iterator);
+        void aggiungiRifornimento(const u_int, const Rifornimento::tipo_r, const float,const float,const float, const string = "l");
+        void modificaRifornimento(const u_int, const list<Rifornimento *>::const_iterator, const Rifornimento::tipo_r, const float,const float,const float, const string s = "l");
     private:
         Liberty* view;
         Model* model;

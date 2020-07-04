@@ -40,13 +40,15 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
         item=current_item;
     tableRifornimenti->setRowCount(0);
     QString unita = "l";
-
-    const list<Rifornimento *> lista = dynamic_cast<VeicoloListWidgetItem *>(item)->getVeicolo()->getRifornimenti();
+    const Veicolo * v =dynamic_cast<VeicoloListWidgetItem *>(item)->getVeicolo();
+    const list<Rifornimento *> lista = v->getRifornimenti();
     for (list<Rifornimento *>::const_iterator rif=lista.begin();rif!=lista.end();rif.operator++()) {
-        if((*rif)->getTipoRifornimento()==Rifornimento::ELETTRICITA){
-            unita="Kw";
-        }else{
-            unita="l";
+        const VeicoloElettrico * ve = dynamic_cast<const VeicoloElettrico *>(v);
+        const VeicoloTermico * vt = dynamic_cast<const VeicoloTermico *>(v);
+        if(ve != nullptr && (*rif)->getTipoRifornimento()==Rifornimento::ELETTRICITA){
+            unita = QString::fromStdString(ve->VeicoloElettrico::getUnitaRifornimento());
+        }else if(vt != nullptr){
+            unita = QString::fromStdString(vt->VeicoloTermico::getUnitaRifornimento());
         }
 
         u_int r = tableRifornimenti->rowCount();
@@ -54,7 +56,7 @@ void RifornimentiVeicoloWidget::updateDati(QListWidgetItem * item)
 
         u_int t = std::distance(lista.begin(),rif);
         QTableWidgetItem * tipo = new QTableWidgetItem(QString::fromStdString(Rifornimento::tipo_string[(*rif)->getTipoRifornimento()]));
-        tipo->setData(Qt::UserRole,QVariant::fromValue(t));
+        tipo->setData(Qt::UserRole,QVariant::fromValue(t)); // per ogni cella salvo i dati del rifornimento, perché per modificare/eliminare l'utente può selezionare qualsiasi cella dellariga
         QTableWidgetItem * quantita = new QTableWidgetItem(QString::number((*rif)->getQuantita())+" "+unita);
         quantita->setData(Qt::UserRole,QVariant::fromValue(t));
         QTableWidgetItem * km = new QTableWidgetItem(QString::number((*rif)->getKmParziale())+" km");
@@ -99,19 +101,21 @@ void RifornimentiVeicoloWidget::askEliminaRifornimento()
 
 void RifornimentiVeicoloWidget::windowRifornimento(const bool modifica)
 {
+    //preparo la finestra per modificare o aggiungere un rifornimento
     QList<string> tipi;
     auto v=dynamic_cast<VeicoloListWidgetItem *>(current_item)->getVeicolo();
     auto vt=dynamic_cast<const VeicoloTermico *>(v);
     if(vt){
-        tipi.push_back(vt->getTipoRifornimento());
+        tipi.push_back(vt->getTipoRifornimento()); // nel caso di un veicolo che possa essere considerato temico aggingo il rispettivo carburante ai tipi consentiti
     }
     auto ve=dynamic_cast<const VeicoloElettrico *>(v);
     if(ve){
-        tipi.push_back(Rifornimento::tipo_string[Rifornimento::ELETTRICITA]);
+        tipi.push_back(Rifornimento::tipo_string[Rifornimento::ELETTRICITA]); // nel caso di un veicolo che possa essere considerato elettrico aggingo l'elettricità ai tipi consentiti
     }
 
-    SetRifornimentoWidget * set = new SetRifornimentoWidget(tipi);
+    SetRifornimentoWidget * set = new SetRifornimentoWidget(tipi); // creo la finestra per lamodifica/agginta, passandogli i tipi consentiti
     if(modifica && tableRifornimenti->selectedRanges().count()==1){
+        // Sto facendo una modiffica di un unico elemento
         auto row = tableRifornimenti->currentItem(); // chiamo row, anche se in realtà è una singola cella, ma i dati sono presenti su qualsiasi cella della riga
         auto it = v->getRifornimenti().begin();
         std::advance(it,row->data(Qt::UserRole).value<u_int>());
@@ -119,8 +123,10 @@ void RifornimentiVeicoloWidget::windowRifornimento(const bool modifica)
         set->setValues(rif->getTipoRifornimento(),rif->getQuantita(),rif->getKmParziale(),rif->getCostoRifornimento());
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
     }else if(!modifica){
+        // Voglio aggiungere un nuovo rifornimento
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r, float, float, float)));
     }else{
+        // ho cliccato modifica, ma ho più righe selezionate, quindi elimino la finestra e non faccio niente
         delete set;
     }
 

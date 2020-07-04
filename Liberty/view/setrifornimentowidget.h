@@ -13,8 +13,8 @@ class SetRifornimentoWidget : public QWidget
 {
         Q_OBJECT
     public:
-        explicit SetRifornimentoWidget(const QList<string>, QWidget *parent = nullptr);
-        void setValues(const Rifornimento::tipo_r,const float,const float,const float);
+        explicit SetRifornimentoWidget(const QList<string> &, QWidget *parent = nullptr);
+        void setValues(const Rifornimento::tipo_r &,const float &,const float &,const float &);
 
     public slots:
         void prepareSignal();

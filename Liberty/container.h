@@ -4,7 +4,6 @@
 #include <stdexcept>
 
 #define INCREMENT_CAPACITY 2
-// TO DO: ricontrollare tutto, siccome preso dall'anno scorso
 
 template<class T>
 class Container{
@@ -19,14 +18,14 @@ class Container{
         bool empty() const;
         unsigned int countElements() const;
 
-        void insertAt(const T &, const iterator ); // TO DO: non credo serva
+        void insertAt(const T &, const iterator );
         void insertBack(const T &);
         void insertFront(const T &);
 
         iterator remove(const iterator);
         iterator remove(const T &);
-        iterator removeFront(); // TO DO: non credo serva
-        iterator removeBack(); // TO DO: non credo serva
+        iterator removeFront();
+        iterator removeBack();
 
         T& at(const int &);
         T& front();
@@ -37,7 +36,7 @@ class Container{
         const T& back() const;
         const T& operator[](const int &) const;
 
-        iterator search(const T &); // TO DO: non credo serva
+        iterator search(const T &);
         iterator begin();
         iterator end();
 
@@ -78,8 +77,7 @@ class Container{
 
         };
 
-        class const_iterator{   // TO DO: da sistemre
-
+        class const_iterator{
             public:
                 const_iterator();
                 const_iterator(const const_iterator &) = default;
@@ -118,11 +116,6 @@ class Container{
         void resize();
         void resize(unsigned int);
         void copyArray(const T*, T*) const;
-
-        /*
-            void rightShift(iterator, int =1);
-            void leftShift(iterator, int =1);
-         */
 };
 
 /*

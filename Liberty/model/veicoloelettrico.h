@@ -7,7 +7,7 @@ class VeicoloElettrico : public virtual Veicolo
 {
     public:
         // Costruttori
-        VeicoloElettrico(const string &mar, const string &model, const float &bat, const u_short &cav=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
+        VeicoloElettrico(const string &mar, const string &model, const float &bat, const u_short &cav=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const string& unita = "Kwh", const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
         VeicoloElettrico(const VeicoloElettrico &) = default;
         //VeicoloElettrico &operator=(const VeicoloElettrico&) = default; // c'è già senza dichiararlo
 
@@ -17,6 +17,7 @@ class VeicoloElettrico : public virtual Veicolo
         virtual u_short getKw() const override;
         float getConsumoElettricoMedio() const; // In km/Kw
         const float& getBatteria() const; //capienza batteria
+        const string &getUnitaRifornimento() const;
 
         // Metodi non costanti
         void setBatteria(const float &capacita_batteria);
@@ -31,6 +32,7 @@ class VeicoloElettrico : public virtual Veicolo
         u_short cavalli_elettrici;
         static Rifornimento::tipo_r tipo_rifornimento;
         float capacita_batteria;
+        string unita_rifornimento;
 };
 
 #endif // VEICOLOELETTRICO_H

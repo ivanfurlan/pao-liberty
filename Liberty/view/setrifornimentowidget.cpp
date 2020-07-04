@@ -1,6 +1,6 @@
 #include "setrifornimentowidget.h"
 
-SetRifornimentoWidget::SetRifornimentoWidget(const QList<std::string> tipi_concessi, QWidget *parent) : QWidget(parent), tipo(new QComboBox(this)), quantita(new QLineEdit(this)), km(new QLineEdit(this)), totale(new QLineEdit(this))
+SetRifornimentoWidget::SetRifornimentoWidget(const QList<std::string>& tipi_concessi, QWidget *parent) : QWidget(parent), tipo(new QComboBox(this)), quantita(new QLineEdit(this)), km(new QLineEdit(this)), totale(new QLineEdit(this))
 {
     QGridLayout * layout = new QGridLayout();
     setLayout(layout);
@@ -45,7 +45,7 @@ SetRifornimentoWidget::SetRifornimentoWidget(const QList<std::string> tipi_conce
     show();
 }
 
-void SetRifornimentoWidget::setValues(const Rifornimento::tipo_r tr, const float q, const float k, const float t)
+void SetRifornimentoWidget::setValues(const Rifornimento::tipo_r &tr, const float &q, const float &k, const float &t)
 {
     tipo->setCurrentIndex(tipo->findData(tr));
     quantita->setText(QString::number(q));

@@ -19,7 +19,7 @@ class SetVeicoloWidget : public QWidget
         void tipoCambiato();
         void prepareSignal();
     signals:
-        void salvare(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
+        void salvare(const QString,const QString,const QString,const float,const Rifornimento::tipo_r,const float,const u_short,const u_int,const u_int,const float,const float);
     private:
         // tutti gli oggetti puntati dai puntatori li elimina qt
         QLabel * cavalli_tLabel;

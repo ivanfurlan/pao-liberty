@@ -11,7 +11,7 @@ using std::string;
 using std::list;
 
 class Veicolo
-{ // TO DO: DA CONTROLLARE/FARE: gestire la memoria e mettere passaggi per riferimento o puntatore ovunque sia possibile
+{
     public:
         // Costruttori
         Veicolo(const string mar = "Sconosciuta", const string model = "Sconosciuto", const u_int &peso_vuoto=0, const u_short &post=0, const u_int &km_i=0, const u_int &tag=0, const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);

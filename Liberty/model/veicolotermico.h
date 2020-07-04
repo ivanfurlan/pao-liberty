@@ -7,7 +7,7 @@ class VeicoloTermico : public virtual Veicolo
 {
     public:
         // Costruttori
-        VeicoloTermico(const string &mar, const string &model, const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
+        VeicoloTermico(const string &mar, const string &model, const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const string& unita="l", const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
         VeicoloTermico(const VeicoloTermico &) = default;
         //VeicoloTermico &operator=(const VeicoloTermico&) = default; // c'è già senza dichiararlo
 
@@ -20,6 +20,7 @@ class VeicoloTermico : public virtual Veicolo
         const float& getSerbatoio() const; // capienza serbatoio
         const string& getTipoRifornimento() const;
         const Rifornimento::tipo_r& getTipoRifornimentoEnum() const;
+        const string &getUnitaRifornimento() const;
 
         // Metodi non costanti
         void setSerbatoio(const float &);
@@ -34,6 +35,7 @@ class VeicoloTermico : public virtual Veicolo
         u_short cavalli_termici;
         Rifornimento::tipo_r tipo_rifornimento;
         float capacita_serbatoio;
+        string unita_rifornimento;
 };
 
 #endif // VEICOLOTERMICO_H

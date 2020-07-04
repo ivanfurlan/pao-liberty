@@ -14,7 +14,7 @@ class ProprietaLabel : public QHBoxLayout
         ProprietaLabel(const QString & n, const bool & m = false, QWidget *parent = nullptr);
         ProprietaLabel(const QString & n, QWidget *parent = nullptr);
 
-        QString getTextModifica() const;
+        const QString getTextModifica() const;
         const bool& visible() const;
 
         void setProprietaText(const QString&);
