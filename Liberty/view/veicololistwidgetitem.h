@@ -11,8 +11,8 @@ class VeicoloListWidgetItem : public QListWidgetItem
         VeicoloListWidgetItem();
         VeicoloListWidgetItem(const Veicolo*, const u_int&);
         const Veicolo *getVeicolo() const;
-        u_int getPosizione() const;
-        void setPosizione(const u_int);
+        const u_int& getPosizione() const;
+        void setPosizione(const u_int&);
         void setVeicolo(const Veicolo*);
     private:
         const Veicolo * veicolo; // non devo preoccuparmi della distruzione. Si occupa il model, questo è un puntatore allo stesso elemento presente nel model

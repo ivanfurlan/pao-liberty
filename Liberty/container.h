@@ -74,7 +74,7 @@ class Container{
 
             private:
                 Container * cPtr;
-                int index;
+                unsigned int index;
 
         };
 

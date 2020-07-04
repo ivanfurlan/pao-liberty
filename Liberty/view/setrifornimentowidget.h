@@ -13,14 +13,15 @@ class SetRifornimentoWidget : public QWidget
 {
         Q_OBJECT
     public:
-        explicit SetRifornimentoWidget(QList<string>, QWidget *parent = nullptr);
-        void setValues(Rifornimento::tipo_r tr,float,float,float);
+        explicit SetRifornimentoWidget(const QList<string>, QWidget *parent = nullptr);
+        void setValues(const Rifornimento::tipo_r,const float,const float,const float);
 
     public slots:
         void prepareSignal();
     signals:
-        void salvare(Rifornimento::tipo_r,float,float,float);
+        void salvare(const Rifornimento::tipo_r,const float,const float,const float);
     private:
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         QComboBox * tipo;
         QLineEdit * quantita;
         QLineEdit * km;

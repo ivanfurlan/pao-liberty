@@ -15,7 +15,7 @@ class ProprietaLabel : public QHBoxLayout
         ProprietaLabel(const QString & n, QWidget *parent = nullptr);
 
         QString getTextModifica() const;
-        bool visible() const;
+        const bool& visible() const;
 
         void setProprietaText(const QString&);
         void setProprietaNumber(const double&);
@@ -27,12 +27,13 @@ class ProprietaLabel : public QHBoxLayout
 
     private:
         void addWidgets();
-        //void reset();
+
         QWidget * parent;
 
         bool isVisible;
         bool isModificabile;
 
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         QLabel * nome;
         QLabel * valore;
         QLineEdit * modificaValore;

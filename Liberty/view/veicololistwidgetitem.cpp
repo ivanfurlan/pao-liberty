@@ -15,12 +15,12 @@ const Veicolo * VeicoloListWidgetItem::getVeicolo() const
     return veicolo;
 }
 
-u_int VeicoloListWidgetItem::getPosizione() const
+const u_int& VeicoloListWidgetItem::getPosizione() const
 {
     return posizione;
 }
 
-void VeicoloListWidgetItem::setPosizione(const u_int pos)
+void VeicoloListWidgetItem::setPosizione(const u_int& pos)
 {
     posizione = pos;
 }

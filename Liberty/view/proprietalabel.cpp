@@ -17,7 +17,7 @@ QString ProprietaLabel::getTextModifica() const
     return modificaValore->text();
 }
 
-bool ProprietaLabel::visible() const
+const bool& ProprietaLabel::visible() const
 {
     return isVisible;
 }
@@ -119,10 +119,3 @@ void ProprietaLabel::addWidgets()
     addWidget(valore);
     addWidget(modificaValore);
 }
-/*
-void ProprietaLabel::reset()
-{
-    //valore->clear();
-    show();
-}
-*/

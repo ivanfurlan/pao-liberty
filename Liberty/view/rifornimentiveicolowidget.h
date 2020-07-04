@@ -27,17 +27,18 @@ class RifornimentiVeicoloWidget : public QWidget
     public slots:
         void updateDati(QListWidgetItem* = nullptr);
         void askEliminaRifornimento();
-        void windowRifornimento(bool modifica = false);
-        void prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float);
+        void windowRifornimento(const bool modifica = false);
+        void prepareSignalAggiungere(const Rifornimento::tipo_r,const float,const float,const float);
         void convertSignalModifica();
-        void prepareSignalModifica(Rifornimento::tipo_r,float,float,float);
+        void prepareSignalModifica(const Rifornimento::tipo_r,const float,const float,const float);
 
     signals:
-        void eliminareRifornimento(u_int,list<Rifornimento *>::const_iterator);
-        void aggiungereRifornimento(u_int, Rifornimento::tipo_r,float,float,float);
-        void modificareRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float);
+        void eliminareRifornimento(const u_int,list<Rifornimento *>::const_iterator);
+        void aggiungereRifornimento(const u_int, const Rifornimento::tipo_r,const float,const float,const float);
+        void modificareRifornimento(const u_int, list<Rifornimento *>::const_iterator, const Rifornimento::tipo_r,const float,const float,const float);
 
     private:
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         QListWidgetItem * current_item;
 
         QTableWidget * tableRifornimenti;

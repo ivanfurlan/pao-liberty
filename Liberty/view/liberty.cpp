@@ -39,11 +39,7 @@ Liberty::Liberty(Controller * c, QWidget *parent) : QWidget(parent), controller(
     connect(rifornimenti, SIGNAL(modificareRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float)), controller, SLOT(modificaRifornimento(u_int, list<Rifornimento *>::const_iterator, Rifornimento::tipo_r,float,float,float)));
 }
 
-Liberty::~Liberty()
-{
-}
-
-void Liberty::mostraErrore(QString errore)
+void Liberty::mostraErrore(const QString &errore)
 {
     errMess->showMessage(errore);
     errMess->exec();

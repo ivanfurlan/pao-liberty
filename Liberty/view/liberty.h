@@ -21,9 +21,8 @@ class Liberty : public QWidget
         Q_OBJECT
     public:
         Liberty(Controller* c,QWidget *parent = nullptr);
-        ~Liberty();
 
-        void mostraErrore(QString = "Si è verificato un errore nell'eseguire l'operazione richiesta");
+        void mostraErrore(const QString& = "Si è verificato un errore nell'eseguire l'operazione richiesta");
 
     public slots:
         void updateLista();
@@ -41,12 +40,12 @@ class Liberty : public QWidget
 
         Controller* controller;
 
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         RifornimentiVeicoloWidget* rifornimenti;
         QVBoxLayout* mainLayout;
         QListWidget* listaWidgetVeicoli;
         DettagliVeicoliWidget* dettagli;
         QTabWidget * info_veicolo;
-
         QErrorMessage * errMess;
 };
 #endif // LIBERTY_H

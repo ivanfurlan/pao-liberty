@@ -21,7 +21,7 @@ class SetVeicoloWidget : public QWidget
     signals:
         void salvare(QString,QString,QString,float,Rifornimento::tipo_r,float,u_short,u_int,u_int,float,float);
     private:
-
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         QLabel * cavalli_tLabel;
         QLabel * cavalli_eLabel;
         QLabel * serbatoioLabel;

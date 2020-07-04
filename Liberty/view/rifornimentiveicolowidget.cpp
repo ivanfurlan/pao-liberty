@@ -97,7 +97,7 @@ void RifornimentiVeicoloWidget::askEliminaRifornimento()
     updateDati(current_item);
 }
 
-void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
+void RifornimentiVeicoloWidget::windowRifornimento(const bool modifica)
 {
     QList<string> tipi;
     auto v=dynamic_cast<VeicoloListWidgetItem *>(current_item)->getVeicolo();
@@ -119,7 +119,7 @@ void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
         set->setValues(rif->getTipoRifornimento(),rif->getQuantita(),rif->getKmParziale(),rif->getCostoRifornimento());
         connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalModifica(Rifornimento::tipo_r,float,float,float)));
     }else if(!modifica){
-        connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r,float,float,float)));
+        connect(set,SIGNAL(salvare(Rifornimento::tipo_r,float,float,float)),this,SLOT(prepareSignalAggiungere(Rifornimento::tipo_r, float, float, float)));
     }else{
         delete set;
     }
@@ -127,7 +127,7 @@ void RifornimentiVeicoloWidget::windowRifornimento(bool modifica)
 
 }
 
-void RifornimentiVeicoloWidget::prepareSignalAggiungere(Rifornimento::tipo_r tipo, float q, float k, float t)
+void RifornimentiVeicoloWidget::prepareSignalAggiungere(const Rifornimento::tipo_r tipo, const float q, const float k, const float t)
 {
     auto vlwi=dynamic_cast<VeicoloListWidgetItem *>(current_item);
     if(vlwi != nullptr){
@@ -143,7 +143,7 @@ void RifornimentiVeicoloWidget::convertSignalModifica()
     windowRifornimento(true);
 }
 
-void RifornimentiVeicoloWidget::prepareSignalModifica(Rifornimento::tipo_r tipo, float q, float k, float t)
+void RifornimentiVeicoloWidget::prepareSignalModifica(const Rifornimento::tipo_r tipo, const float q, const float k, const float t)
 {
     auto vlwi=dynamic_cast<VeicoloListWidgetItem *>(current_item);
     if(vlwi != nullptr){

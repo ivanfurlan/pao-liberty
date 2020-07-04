@@ -28,16 +28,16 @@ class DettagliVeicoliWidget : public QWidget
         void prepareSignalSalvataggio();
     signals:
         void startModifica(); // segnale che viene preso da ogni ProprietàVeicoloLabel che "rende" appunto la lable modificabile. La connect è nel costruttore delle ProprietàVeicoloLabel
-        void richiestaSalvataggio(u_int pos, string marca, string modello, u_int peso, u_short posti, u_int ultimo_tagliando, u_short cv_t, u_short cv_e, float capacita_serbatoio, float capacita_batteria, u_int km_i);
+        void richiestaSalvataggio(const u_int pos, const string marca, const string modello, const u_int peso, const u_short posti, const u_int ultimo_tagliando, const u_short cv_t, const u_short cv_e, const float capacita_serbatoio, const float capacita_batteria, const u_int km_i);
     private:
         QWidget * parent;
         QListWidgetItem * current_item;
 
+        // tutti gli oggetti puntati dai puntatori li elimina qt
         QPushButton * modifica;
         QPushButton * elimina;
         QPushButton * annulla;
         QPushButton * salva;
-
         ProprietaLabel * marca;
         ProprietaLabel * modello;
         ProprietaLabel * peso_vuoto;
