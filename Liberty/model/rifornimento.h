@@ -19,7 +19,6 @@ class Rifornimento
         // Costruttori
         Rifornimento(const tipo_r &t, const float &km, const float &qt, const float &c, const string unita = "l");
         Rifornimento(const Rifornimento&) = default;
-        // Rifornimento& operator=(const Rifornimento&) = default; // c'è già senza dichiararlo
 
         // Metodi Costanti
         const float& getCostoRifornimento() const;

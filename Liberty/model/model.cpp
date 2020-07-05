@@ -36,8 +36,9 @@ void Model::deleteV(const Container<Veicolo*>::const_iterator & it)
 
 void Model::deleteAll()
 {
-    while(veicoli.end()==veicoli.begin()){
-        veicoli.removeBack();
+    while(veicoli.countElements()>0){
+        auto it = veicoli.begin();
+        deleteV(it);
     }
 }
 

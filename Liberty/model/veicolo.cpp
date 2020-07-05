@@ -5,7 +5,7 @@ Veicolo::Veicolo(const std::string mar, const std::string model, const u_int &pe
     : rifornimenti(), marca(mar), modello(model), peso(peso_vuoto), km_iniziali(km_i), posti(post), ultimo_tagliando_km(tag), peso_max(p_max), lunghezza(lun), larghezza(lar), altezza(alt)
 {
     std::regex rx("[ ]*");
-    if(std::regex_match(marca,rx)){
+    if(std::regex_match(marca,rx)){ // se è una stringa vuota o solo di spazzi
         marca = "Sconosciuta";
     }
     if(std::regex_match(modello,rx)){
@@ -91,7 +91,7 @@ void Veicolo::doTagliando(const u_int &km)
 void Veicolo::setName(const std::string &ma, const std::string &mo)
 {
     std::regex rx("[ ]*");
-    if(std::regex_match(marca,rx)){
+    if(std::regex_match(marca,rx)){ // se è una stringa vuota o solo di spazzi
         marca = "Sconosciuta";
     }else{
         marca=ma;

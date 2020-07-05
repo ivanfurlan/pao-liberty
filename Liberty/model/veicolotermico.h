@@ -9,7 +9,6 @@ class VeicoloTermico : public virtual Veicolo
         // Costruttori
         VeicoloTermico(const string &mar, const string &model, const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const string& unita="l", const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
         VeicoloTermico(const VeicoloTermico &) = default;
-        //VeicoloTermico &operator=(const VeicoloTermico&) = default; // c'è già senza dichiararlo
 
         // Metodi costanti
         virtual u_int getPesoTrasportabile(const u_short &num_passeggeri = 0) const override;
@@ -27,6 +26,8 @@ class VeicoloTermico : public virtual Veicolo
         void setCvTermici(const u_short &);
 
     protected:
+        // costruttore solo per le classi derivate, così non devono passare i dati di Veicolo
+        VeicoloTermico(const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav=0, const string& unita="l");
         virtual bool checkCorrettezzaRifornimento(const Rifornimento &) const override;
 
     private:

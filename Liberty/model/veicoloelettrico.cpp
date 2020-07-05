@@ -53,6 +53,12 @@ void VeicoloElettrico::setCvElettrici(const u_short &ce)
     cavalli_elettrici=ce;
 }
 
+VeicoloElettrico::VeicoloElettrico(const float &bat, const u_short &cav, const std::string &unita) : cavalli_elettrici(cav), capacita_batteria(bat), unita_rifornimento(unita)
+{
+    if(capacita_batteria<=0)
+        throw std::domain_error("La capacità della batteria deve essere maggiore di 0");
+}
+
 bool VeicoloElettrico::checkCorrettezzaRifornimento(const Rifornimento &r) const
 {
     return (r.getTipoRifornimento()==this->tipo_rifornimento) && \

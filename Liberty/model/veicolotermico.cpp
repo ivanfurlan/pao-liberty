@@ -9,8 +9,25 @@ VeicoloTermico::VeicoloTermico(const std::string &mar, const std::string &model,
 
 u_int VeicoloTermico::getPesoTrasportabile(const u_short &num_passeggeri) const
 {
+    float peso_specifico=0;
+
+    switch (tipo_rifornimento) {
+        case Rifornimento::DIESEL:
+            peso_specifico=0.835;
+            break;
+        case Rifornimento::BENZINA:
+            peso_specifico=0.73;
+            break;
+        case Rifornimento::GPL:
+            peso_specifico=0.516;
+            break;
+        default:
+            peso_specifico=1;
+            break;
+
+    }
     // il controllo che il num_passeggeri sia valido è già fatto dal metodo di Veicolo che viene richiamato
-    return Veicolo::getPesoTrasportabile(num_passeggeri) - (capacita_serbatoio*((tipo_rifornimento==Rifornimento::DIESEL)?0.835:0.73));
+    return Veicolo::getPesoTrasportabile(num_passeggeri) - (capacita_serbatoio*peso_specifico);
 }
 
 u_int VeicoloTermico::getKmAutonomia() const
@@ -65,6 +82,12 @@ void VeicoloTermico::setSerbatoio(const float &capacita_serbatoio)
 void VeicoloTermico::setCvTermici(const u_short &ct)
 {
     cavalli_termici=ct;
+}
+
+VeicoloTermico::VeicoloTermico(const Rifornimento::tipo_r &tr, const float &ser, const u_short &cav, const std::string &unita) : cavalli_termici(cav), tipo_rifornimento(tr), capacita_serbatoio(ser), unita_rifornimento(unita)
+{
+    if(capacita_serbatoio<=0)
+        throw std::domain_error("La capacità del serbatoio deve essere maggiore di 0");
 }
 
 bool VeicoloTermico::checkCorrettezzaRifornimento(const Rifornimento &r) const

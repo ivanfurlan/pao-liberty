@@ -10,7 +10,6 @@ class AutoIbrida : public VeicoloTermico, public VeicoloElettrico
         // Costruttori
         AutoIbrida(const string &mar, const string &model, const Rifornimento::tipo_r &tr, const float &ser, const float &bat, const u_short &cav_t=0, const u_short &cav_e=0, const u_int &peso_vuoto=0, const u_int &posti=0, const u_int &km_i=0, const u_int &tag=0, const string& unita_t = "l", const string& unita_e = "Kwh", const u_int &p_max=0, const float &lun=0, const float &lar=0, const float &alt=0);
         AutoIbrida(const AutoIbrida&) = default;
-        //AutoIbrida &operator=(const AutoIbrida&) = default; // c'è già senza dichiararlo
 
         // Metodi costanti
         virtual u_int getKmAutonomia() const override;
