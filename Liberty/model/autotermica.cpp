@@ -8,7 +8,7 @@ AutoTermica::AutoTermica(const std::string &mar, const std::string &model, const
 
 bool AutoTermica::fareTagliando() const
 {
-    return (this->getKmTotaliVeicolo() - this->getUltimoTagliando() >= 10000);
+    return (getKmTotaliVeicolo() - getUltimoTagliando() >= 10000);
 }
 
 AutoTermica *AutoTermica::clone() const

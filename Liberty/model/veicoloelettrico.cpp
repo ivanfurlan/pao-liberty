@@ -61,8 +61,8 @@ VeicoloElettrico::VeicoloElettrico(const float &bat, const u_short &cav, const s
 
 bool VeicoloElettrico::checkCorrettezzaRifornimento(const Rifornimento &r) const
 {
-    return (r.getTipoRifornimento()==this->tipo_rifornimento) && \
-            (r.getQuantita()<=this->capacita_batteria) && \
+    return (r.getTipoRifornimento()==tipo_rifornimento) && \
+            (r.getQuantita()<=capacita_batteria) && \
             Veicolo::checkCorrettezzaRifornimento(r);
 }
 

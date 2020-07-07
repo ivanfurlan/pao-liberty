@@ -134,7 +134,7 @@ Container<T>::Container(int size)
 template<class T>
 Container<T>::~Container()
 {
-    delete[] this->array;
+    delete[] array;
 }
 
 template <typename T>

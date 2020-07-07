@@ -8,7 +8,7 @@ AutoElettrica::AutoElettrica(const std::string &mar, const std::string &model, c
 
 bool AutoElettrica::fareTagliando() const
 {
-    return (this->getKmTotaliVeicolo() - this->getUltimoTagliando() >= 15000);
+    return (getKmTotaliVeicolo() - getUltimoTagliando() >= 15000);
 }
 
 AutoElettrica *AutoElettrica::clone() const

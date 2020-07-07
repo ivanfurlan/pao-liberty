@@ -92,8 +92,8 @@ VeicoloTermico::VeicoloTermico(const Rifornimento::tipo_r &tr, const float &ser,
 
 bool VeicoloTermico::checkCorrettezzaRifornimento(const Rifornimento &r) const
 {
-    return (r.getTipoRifornimento()==this->tipo_rifornimento) && \
-            (r.getQuantita()<=this->capacita_serbatoio) && \
+    return (r.getTipoRifornimento()==tipo_rifornimento) && \
+            (r.getQuantita()<=capacita_serbatoio) && \
             Veicolo::checkCorrettezzaRifornimento(r);
 }
 

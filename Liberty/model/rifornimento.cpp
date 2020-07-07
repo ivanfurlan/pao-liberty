@@ -14,7 +14,7 @@ const float& Rifornimento::getCostoRifornimento() const
 
 const float& Rifornimento::getKmParziale() const
 {
-    return this->km_parziale;
+    return km_parziale;
 }
 
 const float& Rifornimento::getQuantita() const
