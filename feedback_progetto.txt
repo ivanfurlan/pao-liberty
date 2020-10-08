@@ -1,0 +1,47 @@
+Feedback Progetto di Programmazione ad Oggetti
+Studente: Ivan Furlan
+
+Vincoli obbligatori
++ Soddisfatti
+
+
+Orientamento ad oggetti
++ Incapsulamento
++ Modularità (modello logico e la GUI sono separati)
++ Estensibilità ed evolvibilità, polimorfismo
+
+
+Funzionalità
++ Eliminazione multipla tramite selezione multipla
+- Si può migliorare con funzionalità di ricerca/filtro sui veicoli
+
+
+GUI
++ Visualizza i diversi tipi di dato in maniera opportuna
++ Usabile e intuitiva
++ Robusta, gestisce ridimensionamento
+- Migliorabile attraverso l'uso di icone ed elementi grafici (per es.
+  icone per indicare se un veicolo è a benzina, elettrico o ibrido)
+
+
+Relazione
++ Adeguata
+
+
+Suggerimenti non collegati alla valutazione
+Nessuno.
+
+Insufficiente
+Sufficiente
+Buono
++ Molto buono
+Ottimo
+Eccellente
+
+da 25 a 26 con mb
+da 26 a 26 con mb
+
+da 27 in su si aumenta al massimo di un voto
+dal 23 in giù anche di 2 voti
+18 anche 3
+
